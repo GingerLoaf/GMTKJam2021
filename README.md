@@ -80,6 +80,7 @@ When you modify the project, it will be validated and if errors are detected the
 If you find that an asset is incorrectly categorized or not categorized at all, you can add or edit a `.slp` file in any directory.
 Simply add a list of extensions in the file (one per line) and the validator will use that as a recursive guide from that directory and deeper.
 An example `.slp` file that enforces images only might be something like this:
+
 ```text
 .png
 .jpg
