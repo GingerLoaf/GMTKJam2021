@@ -120,7 +120,7 @@ internal class WristSlapperWindow : EditorWindow
 
         if (invalidPaths.Count > 0)
         {
-            windowInstance.Show();
+            windowInstance.Show(); 
             windowInstance.Focus();
         }
     }
