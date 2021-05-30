@@ -1,5 +1,6 @@
 # Welcome to GMTK Jam 2021!!!
 ## Dates: June 11-13
+## https://itch.io/jam/gmtk-2021
 
 # Here's what you need to do to get started.
 ## Join our discord
