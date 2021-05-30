@@ -26,7 +26,7 @@
 
 ## Install Unity
 - Download Unity Hub (if you don't have it already): https://public-cdn.cloud.unity3d.com/hub/prod/UnityHubSetup.exe
-- After the Unity Hub is installed, open this link in a web browser to launch the installer for our specific editor version: [2021.1.9f1 hub link](unityhub://2021.1.9f1/7a790e367ab3)
+- After the Unity Hub is installed, open this link in a web browser to launch the installer for our specific editor version: <unityhub://2021.1.9f1/7a790e367ab3>
 - During installation uncheck ALL boxes except for `Microsoft Visual Studio Community 2019` if you want to use that for editing code.
 - After installation completes, open the unity project files at `<repository-root>\GMTKJam2021-Unity`
 
