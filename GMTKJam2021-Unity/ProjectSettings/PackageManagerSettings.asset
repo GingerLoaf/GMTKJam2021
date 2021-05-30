@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnablePreReleasePackages: 0
-  m_EnablePackageDependencies: 0
+  m_EnablePackageDependencies: 1
   m_AdvancedSettingsExpanded: 1
   m_ScopedRegistriesSettingsExpanded: 1
   m_SeeAllPackageVersions: 0
@@ -25,21 +25,53 @@ MonoBehaviour:
     m_Scopes: []
     m_IsDefault: 1
     m_Capabilities: 7
-  m_UserSelectedRegistryName: 
+  - m_Id: scoped:Unity Atoms
+    m_Name: Unity Atoms
+    m_Url: https://registry.npmjs.org
+    m_Scopes:
+    - com.unity-atoms.unity-atoms-core
+    - com.unity-atoms.unity-atoms-base-atoms
+    - com.unity-atoms.unity-atoms-fsm
+    - com.unity-atoms.unity-atoms-mobile
+    - com.unity-atoms.unity-atoms-mono-hooks
+    - com.unity-atoms.unity-atoms-tags
+    - com.unity-atoms.unity-atoms-scene-mgmt
+    - com.unity-atoms.unity-atoms-ui
+    - com.unity-atoms.unity-atoms-input-system
+    m_IsDefault: 0
+    m_Capabilities: 0
+  m_UserSelectedRegistryName: Unity Atoms
   m_UserAddingNewScopedRegistry: 0
   m_RegistryInfoDraft:
     m_ErrorMessage: 
     m_Original:
-      m_Id: 
-      m_Name: 
-      m_Url: 
-      m_Scopes: []
+      m_Id: scoped:Unity Atoms
+      m_Name: Unity Atoms
+      m_Url: https://registry.npmjs.org
+      m_Scopes:
+      - com.unity-atoms.unity-atoms-core
+      - com.unity-atoms.unity-atoms-base-atoms
+      - com.unity-atoms.unity-atoms-fsm
+      - com.unity-atoms.unity-atoms-mobile
+      - com.unity-atoms.unity-atoms-mono-hooks
+      - com.unity-atoms.unity-atoms-tags
+      - com.unity-atoms.unity-atoms-scene-mgmt
+      - com.unity-atoms.unity-atoms-ui
+      - com.unity-atoms.unity-atoms-input-system
       m_IsDefault: 0
       m_Capabilities: 0
     m_Modified: 0
-    m_Name: 
-    m_Url: 
+    m_Name: Unity Atoms
+    m_Url: https://registry.npmjs.org
     m_Scopes:
-    - 
+    - com.unity-atoms.unity-atoms-core
+    - com.unity-atoms.unity-atoms-base-atoms
+    - com.unity-atoms.unity-atoms-fsm
+    - com.unity-atoms.unity-atoms-mobile
+    - com.unity-atoms.unity-atoms-mono-hooks
+    - com.unity-atoms.unity-atoms-tags
+    - com.unity-atoms.unity-atoms-scene-mgmt
+    - com.unity-atoms.unity-atoms-ui
+    - com.unity-atoms.unity-atoms-input-system
     m_SelectedScopeIndex: 0
   m_LoadAssets: 0
