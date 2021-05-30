@@ -64,6 +64,13 @@ Source
 |   +---Editor: Editor only scenes that will not be included in the final build
 ```
 
+### External Tools
+#### Unity Atoms
+This tool allows every serialized field to be a "reference" to external data assets.
+This decouples the inputs to game logic from the way that the data is used.
+It also has the ability to make scripted events to entirely decouple systems from one another.
+Read up on it [Here](https://github.com/unity-atoms/unity-atoms)!
+
 ### Project Validator (Wrist Slapper)
 This tool attempts to ensure a clean project structure while reducing the time spent between humans discussing the structure (it's automatic).
 When you modify the project, it will be validated and if errors are detected they will be presented to the user with some suggested fixes.
