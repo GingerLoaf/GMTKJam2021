@@ -86,6 +86,7 @@ An example `.slp` file that enforces images only might be something like this:
 .jpeg
 .gif
 ```
+
 If those lines are placed into a `.slp` file in some directory then that directory and all directories beneath it will enforce that only those types of files can be placed inside.
 `.slp` lines are recursively "stacked" on each other as the hierarchy is resolved to any given file.
 The validator starts with the directory that the file is in and then recursively finds all `.slp` files in the parent directories and combines all of them to yield the final set of rules.
