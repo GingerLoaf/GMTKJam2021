@@ -22,8 +22,6 @@ internal class WristSlapperWindow : EditorWindow
         SetDataAndShowIfNeeded(invalidPaths);
     }
 
-    private Vector2 m_scrollPosition = default;
-
     private void OnGUI()
     {
         m_scrollPosition = GUILayout.BeginScrollView(m_scrollPosition);
@@ -77,6 +75,7 @@ internal class WristSlapperWindow : EditorWindow
         {
             EditorGUILayout.HelpBox("There are no issues", MessageType.Info);
         }
+
         GUILayout.EndScrollView();
     }
 
@@ -104,10 +103,8 @@ internal class WristSlapperWindow : EditorWindow
             invalidObjects.Add((relativePath, asset));
         }
 
-        var windowInstance = GetWindow<WristSlapperWindow>();
+        var windowInstance = GetWindow<WristSlapperWindow>("Project Errors", false);
         windowInstance.m_invalidEntries = invalidObjects;
-        windowInstance.titleContent.text = "Project Errors";
-
         windowInstance.m_extensionToRelativePaths.Clear();
         var (_, extensionToAllowedDirectories) = WristSlapper.LoadFullConfiguration(Application.dataPath);
         foreach (var kvp in extensionToAllowedDirectories)
@@ -124,12 +121,15 @@ internal class WristSlapperWindow : EditorWindow
         if (invalidPaths.Count > 0)
         {
             windowInstance.Show();
+            windowInstance.Focus();
         }
     }
 
     #endregion
 
     #region Private Fields
+
+    private Vector2 m_scrollPosition = default;
 
     private readonly Dictionary<string, string[]> m_extensionToRelativePaths = new Dictionary<string, string[]>();
 

@@ -35,9 +35,8 @@ internal static class WristSlapper
         //       We want to process later on!
         await Task.Yield();
 
-        EditorApplication.projectChanged += ValidateProject;
         Debug.Log("Start File Monitor");
-        var interval = TimeSpan.FromMinutes(5);
+        var interval = TimeSpan.FromMinutes(1);
         while (!EditorApplication.isCompiling)
         {
             ValidateProject();
