@@ -93,3 +93,6 @@ If those lines are placed into a `.slp` file in some directory then that directo
 `.slp` lines are recursively "stacked" on each other as the hierarchy is resolved to any given file.
 The validator starts with the directory that the file is in and then recursively finds all `.slp` files in the parent directories and combines all of them to yield the final set of rules.
 This allows global settings to be configured such as a rule for `.meta` files being allowed in any directory of the project.
+
+### Additional Tutorials
+- [Visual Scripting](GMTKJam2021-Unity/Assets/Source/Documentation/VisualScripting.md)
