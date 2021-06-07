@@ -18,20 +18,23 @@ MonoBehaviour:
   m_Title:
     m_Untranslated: Welcome to the jam!
   m_Description:
-    m_Untranslated: 'The theme is <b>UNNANOUNCED</b>.
+    m_Untranslated: 'The theme is <b>UNNANOUNCED</b>
+
+      Submissions open from
+      June 11th 2021 at 1:03 PM to June 13th 2021 at 1:03 PM
 
 
-      Here are the participants
-      in our jam (let <b>GingerLoaf</b> or <b>Philip Wilkerson</b> know if this is
-      incorrect):
+      Here are the
+      participants in our jam (let <b>GingerLoaf</b> or <b>Philip Wilkerson</b> know
+      if this is incorrect):
 
-      <i>GingerLoaf:</i> <b>Code, Music, Design, Management</b>
+      <i>GingerLoaf:</i> <b>Documentation, Code, Music,
+      Design, Management</b>
 
-      <i>Philip
-      Wilkerson:</i> <b>Design, Management</b>
+      <i>Philip Wilkerson:</i> <b>Design, Management</b>
 
-      <i>Steve Gutierrez:</i> <b>Code,
-      Design, Art</b>
+      <i>Steve
+      Gutierrez:</i> <b>Code, Design, Art</b>
 
       <i>Roy:</i> <b>Code, Design</b>
 
@@ -39,7 +42,11 @@ MonoBehaviour:
       <b>Code, Design, World Building, Narrative/Storytelling</b>
 
       <i>Oniwolf:</i>
-      <b>Design, Art, World Building</b>'
+      <b>Design, Art, World Building</b>
+
+
+      You can view documentation and tutorials
+      by going to `Tutorials > Show Tutorials`'
   m_Buttons:
   - Text:
       m_Untranslated: Close
