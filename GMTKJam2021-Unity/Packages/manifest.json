@@ -55,7 +55,9 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.xr": "1.0.0",
+    "com.unity.learn.iet-framework": "2.0.0-pre.5",
+    "com.unity.learn.iet-framework.authoring": "1.0.0-pre.5"
   },
   "scopedRegistries": [
     {

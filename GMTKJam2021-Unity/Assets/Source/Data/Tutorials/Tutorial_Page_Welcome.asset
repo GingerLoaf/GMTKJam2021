@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0885f594ab85594caa28e1a96cbe0d8, type: 3}
+  m_Name: Tutorial_Page_Welcome
+  m_EditorClassIdentifier: 
+  m_Image: {fileID: 2800000, guid: 1c4fc8b2f80db4e47a076d4226e9669a, type: 3}
+  m_WindowTitle:
+    m_Untranslated: GMTK 2021
+  m_Title:
+    m_Untranslated: Welcome to the jam!
+  m_Description:
+    m_Untranslated: 'The theme is <b>UNNANOUNCED</b>.
+
+
+      Here are the participants
+      in our jam (let <b>GingerLoaf</b> or <b>Philip Wilkerson</b> know if this is
+      incorrect):
+
+      <i>GingerLoaf:</i> <b>Code, Music, Design, Management</b>
+
+      <i>Philip
+      Wilkerson:</i> <b>Design, Management</b>
+
+      <i>Steve Gutierrez:</i> <b>Code,
+      Design, Art</b>
+
+      <i>Roy:</i> <b>Code, Design</b>
+
+      <i>Ryleree:</i>
+      <b>Code, Design, World Building, Narrative/Storytelling</b>
+
+      <i>Oniwolf:</i>
+      <b>Design, Art, World Building</b>'
+  m_Buttons:
+  - Text:
+      m_Untranslated: Close
+    Tooltip:
+      m_Untranslated: 
+    OnClick:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 11400000}
+          m_TargetAssemblyTypeName: Unity.Tutorials.Core.Editor.TutorialWelcomePage,
+            Unity.Tutorials.Core.Editor
+          m_MethodName: CloseCurrentModalDialog
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1

@@ -63,3 +63,8 @@ crashlytics-build.properties
 
 # Visual Scripting
 Assets/Unity.VisualScripting.Generated*
+
+# A marker file of which existence is used to decide whether to run the first-launch experience, for example show the welcome dialog.
+InitCodeMarker
+# Tutorial Framework has a backup option for the project's content, let's ignore the possible backup folder.
+/Tutorial Defaults/
