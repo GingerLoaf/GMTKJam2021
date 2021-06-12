@@ -9,6 +9,7 @@
     "com.unity-atoms.unity-atoms-scene-mgmt": "4.4.3",
     "com.unity-atoms.unity-atoms-tags": "4.4.3",
     "com.unity-atoms.unity-atoms-ui": "4.4.3",
+    "com.unity.2d.psdimporter": "5.0.3",
     "com.unity.addressables": "1.16.19",
     "com.unity.cinemachine": "2.7.3",
     "com.unity.collab-proxy": "1.5.7",

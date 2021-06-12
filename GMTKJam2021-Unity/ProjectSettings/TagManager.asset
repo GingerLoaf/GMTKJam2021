@@ -10,10 +10,10 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - FogCutout
   - Water
   - UI
-  - 
+  - FogPlane
   - 
   - 
   - 
