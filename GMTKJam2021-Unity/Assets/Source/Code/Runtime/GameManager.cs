@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityAtoms.BaseAtoms;
 using UnityEngine.InputSystem;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -30,10 +31,7 @@ public class GameManager : MonoBehaviour
     private float oxygenGenerationTime = 10f;
     [SerializeField]
     Transform terrarium;
-    [SerializeField]
-    IntReference terrariumCurrentHealth, terrariumMaxHealth;
-    [SerializeField]
-    int repairCost = 1;
+
 
     [Header("SpaceShip Properties")]
     [SerializeField]
@@ -46,6 +44,10 @@ public class GameManager : MonoBehaviour
     Color highlightColor = Color.white;
     [SerializeField]
     Color SelectedColor = Color.black;
+
+    [Header("UI Debug Components")]
+    [SerializeField]
+    UIManager UI;
 
     bool hasPressedMouse = false;
     private GameObject lastSelectedObject = null, lastHighlightedObject = null;
@@ -77,12 +79,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         InteractWithObjects();
-        /*
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
-        {
-            ReturnAllUnits();
-        }
-        */
     }
 
     void InteractWithObjects()
@@ -238,11 +234,6 @@ public class GameManager : MonoBehaviour
         {
             totalOxygen.Value++;
         }
-    }
-
-    public void RepairTerrarium()
-    {
-        
     }
 
     public void ReturnAllUnits()
