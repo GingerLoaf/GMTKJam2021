@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class cameraControls : MonoBehaviour
 {
+    public GameManager GM;
+
     public float panBorder = 10f;
     [Range(5,10)]
     public float panSpeed = 5;
@@ -17,43 +20,56 @@ public class cameraControls : MonoBehaviour
     void Start()
     {
         mainCamera = mainCamera.GetComponent<Camera>();
-        
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(Input.mousePosition);
-        Vector3 pos = transform.position;
+        //Debug.Log(Mouse.current.position.ReadValue());
+        Vector3 _mousePos = Mouse.current.position.ReadValue();
+        Vector3 pos = mainCamera.transform.position;
         //camerapos = GetComponent<GameObject>(gm).transform.position;
 
-        if (Input.mousePosition.y <= 0 + panBorder)
+        if (_mousePos.y <= 0 + panBorder)
         {
             pos.z -= panSpeed * Time.deltaTime;
         }
-        if (Input.mousePosition.y >= Screen.height - panBorder)
+        if (_mousePos.y >= Screen.height - panBorder)
         {
             pos.z += panSpeed * Time.deltaTime;
         }
-        if (Input.mousePosition.x <= 0 + panSpeed)
+        if (_mousePos.x <= 0 + panSpeed)
         {
             pos.x -= panSpeed * Time.deltaTime;
         }
-        if (Input.mousePosition.x >= Screen.width - panSpeed)
+        if (_mousePos.x >= Screen.width - panSpeed)
         {
             pos.x += panSpeed * Time.deltaTime;
         }
-        if (Input.GetKey(KeyCode.Space))
+
+        if (GM.FocusedObject != null)
         {
-            StartCoroutine(focusCamera());
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                print("called");
+                camerapos = GM.FocusedObject.transform.position;
+                StartCoroutine(focusCamera());
+            }
+            else
+            {
+                mainCamera.transform.position = pos;
+            }
         }
-        transform.position = pos;
+        else
+        {
+            mainCamera.transform.position = pos;
+        }
 
     }
 
     IEnumerator focusCamera()
     {
+        print("called");
         mainCamera.transform.position = camerapos;
         yield break;
     }

@@ -9,16 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf8a67b68db3d4650908f8cf6adeda60, type: 3}
-  m_Name: Global Oxygen
+  m_Script: {fileID: 11500000, guid: ad76d497767c34ecf88c7aa597da29c0, type: 3}
+  m_Name: Global RepairCost
   m_EditorClassIdentifier: 
   _developerDescription: 
   _id: 
-  _value: 996828
-  _changed: {fileID: 0}
-  _changedWithHistory: {fileID: 0}
-  _triggerChangedOnOnEnable: 0
-  _triggerChangedWithHistoryOnOnEnable: 0
-  _oldValue: 996829
-  _initialValue: 1000000
-  _preChangeTransformers: []
+  _value: 1

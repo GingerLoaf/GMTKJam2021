@@ -30,6 +30,10 @@ public class GameManager : MonoBehaviour
     private float oxygenGenerationTime = 10f;
     [SerializeField]
     Transform terrarium;
+    [SerializeField]
+    IntReference terrariumCurrentHealth, terrariumMaxHealth;
+    [SerializeField]
+    int repairCost = 1;
 
     [Header("SpaceShip Properties")]
     [SerializeField]
@@ -64,7 +68,7 @@ public class GameManager : MonoBehaviour
             UnitBehavoir _curUnit = Instantiate(unitPrefab, 
                 pointWithInCirlce(unitSpawnpoint.position, spawnRadius), 
                 Quaternion.identity).GetComponent<UnitBehavoir>();
-            
+            _curUnit.Init(terrarium, Classes.CAPTAIN);
             units.Add(_curUnit);
         }
     }
@@ -73,10 +77,12 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         InteractWithObjects();
+        /*
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             ReturnAllUnits();
         }
+        */
     }
 
     void InteractWithObjects()
@@ -138,7 +144,7 @@ public class GameManager : MonoBehaviour
                             {
                                 if (lastSelectedObject.GetComponent<UnitBehavoir>())
                                 {
-                                    if (IsOnMesh(_interactionHit.point, lastSelectedObject.GetComponent<UnitBehavoir>()))
+                                    if (IsOnMesh(_interactionHit.point, _obj, lastSelectedObject.GetComponent<UnitBehavoir>()))
                                     {
                                         lastSelectedObject.GetComponent<Outline>().enabled = false;
                                         lastSelectedObject = null;
@@ -182,6 +188,17 @@ public class GameManager : MonoBehaviour
                             }
                             //expand terrarium interaction
                             break;
+                        case "resource":
+                            if (lastSelectedObject != null && lastSelectedObject.GetComponent<UnitBehavoir>())
+                            {
+                                UnitBehavoir _curUnit = lastSelectedObject.GetComponent<UnitBehavoir>();
+                                if (IsOnMesh(pointOnCircle(_interactionHit.point, _curUnit.gatherDst), _obj, _curUnit))
+                                {
+                                    lastSelectedObject.GetComponent<Outline>().enabled = false;
+                                    lastSelectedObject = null;
+                                }
+                            }
+                            break;
 
                         default:
                             print("Not Interactable");
@@ -223,6 +240,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void RepairTerrarium()
+    {
+        
+    }
+
     public void ReturnAllUnits()
     {
         for (int i = 0; i < units.Count; i++)
@@ -230,7 +252,7 @@ public class GameManager : MonoBehaviour
             NavMeshHit _navHit;
             if (NavMesh.SamplePosition(pointWithInCirlce(unitSpawnpoint.position, spawnRadius), out _navHit, 1f, NavMesh.AllAreas))
             {
-                units[i].moveUnit(_navHit.position,terrarium.gameObject);
+                units[i].moveUnit(_navHit.position, terrarium.gameObject);
             }
         }
     }
@@ -246,12 +268,12 @@ public class GameManager : MonoBehaviour
         return false;
     }
 
-    bool IsOnMesh(Vector3 _point, UnitBehavoir _agent)
+    bool IsOnMesh(Vector3 _point, GameObject _destination, UnitBehavoir _agent)
     {
         NavMeshHit _navHit;
         if (NavMesh.SamplePosition(_point, out _navHit, 1f, NavMesh.AllAreas))
         {
-            _agent.moveUnit(_navHit.position,terrarium.gameObject);
+            _agent.moveUnit(_navHit.position, _destination);
             return true;
         }
         return false;
@@ -261,6 +283,18 @@ public class GameManager : MonoBehaviour
     {
         Vector2 _spawnCircle = (Random.insideUnitCircle * _radius);
         return new Vector3(_spawnCircle.x, 0, _spawnCircle.y) + _point;
+    }
+
+    Vector3 pointOnCircle(Vector3 _point, float _radius)
+    {
+        Vector3 _spawnCircle = Vector3.right;
+        _spawnCircle = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up) * _spawnCircle;
+        return new Ray(_point, _spawnCircle).GetPoint(_radius);
+    }
+
+    public GameObject FocusedObject
+    {
+        get { return lastSelectedObject; }
     }
 
     private void OnDrawGizmosSelected()
