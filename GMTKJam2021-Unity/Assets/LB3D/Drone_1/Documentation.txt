@@ -1,0 +1,12 @@
+DOCUMENTATION
+
+For help, you may contact me at my website: https://lb3d.co/contact/
+
+This is a simple prop or animated enemy. 
+
+Simply drag the prefab found at LB3D/Drone_1/Drone_Walker into your scene. 
+
+It is better for users to create their own animation controllers, rather than to use a pre-built solution that does not likely match your project's style. In short, the example animation is good for demonstration, but make your own controller for best results. 
+
+
+
