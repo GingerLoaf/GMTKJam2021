@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     [Header("Terrarium Properties")]
     [SerializeField]
     private float oxygenGenerationTime = 10f;
+    [SerializeField]
+    Transform terrarium;
 
     [Header("SpaceShip Properties")]
     [SerializeField]
@@ -154,14 +156,18 @@ public class GameManager : MonoBehaviour
                             break;
 
                         case "unit":
-                            if (lastSelectedObject == null || lastSelectedObject != _obj)
+                            if (_obj.GetComponent<UnitBehavoir>().myState != UnitStates.DIED)
                             {
-                                if (lastSelectedObject != null && lastSelectedObject != _obj)
+                                if (lastSelectedObject == null || lastSelectedObject != _obj)
                                 {
-                                    lastSelectedObject.GetComponent<Outline>().enabled = false;
+                                    if (lastSelectedObject != null && lastSelectedObject != _obj)
+                                    {
+                                        lastSelectedObject.GetComponent<Outline>().enabled = false;
+                                    }
+                                    lastSelectedObject = _obj;
                                 }
-                                lastSelectedObject = _obj;
                             }
+                            
                             //expand unit interaction
                             break;
 
@@ -224,7 +230,7 @@ public class GameManager : MonoBehaviour
             NavMeshHit _navHit;
             if (NavMesh.SamplePosition(pointWithInCirlce(unitSpawnpoint.position, spawnRadius), out _navHit, 1f, NavMesh.AllAreas))
             {
-                units[i].moveUnit(_navHit.position);
+                units[i].moveUnit(_navHit.position,terrarium.gameObject);
             }
         }
     }
@@ -245,7 +251,7 @@ public class GameManager : MonoBehaviour
         NavMeshHit _navHit;
         if (NavMesh.SamplePosition(_point, out _navHit, 1f, NavMesh.AllAreas))
         {
-            _agent.moveUnit(_navHit.position);
+            _agent.moveUnit(_navHit.position,terrarium.gameObject);
             return true;
         }
         return false;
