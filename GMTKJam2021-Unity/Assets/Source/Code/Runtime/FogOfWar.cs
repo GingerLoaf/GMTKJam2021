@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
+[ExecuteAlways]
 public class FogOfWar : MonoBehaviour
 {
 
@@ -8,6 +9,11 @@ public class FogOfWar : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+        
         InitializeFog();
     }
 
@@ -38,36 +44,28 @@ public class FogOfWar : MonoBehaviour
         // Zack: All dependencies are valid at this point
         m_mainCamera = mainCamera;
 
-        // Zack: Copy camera settings
-        m_outputRenderer.depth = m_mainCamera.depth + 1;
-        m_outputRenderer.nearClipPlane = m_mainCamera.nearClipPlane;
-        m_outputRenderer.farClipPlane = m_mainCamera.farClipPlane;
-        m_outputRenderer.orthographic = m_mainCamera.orthographic;
-        m_outputRenderer.orthographicSize = m_mainCamera.orthographicSize;
-
         // Zack: Cause a single render that will clear the renderTexture buffer
         var flags = m_smearCamera.clearFlags;
         m_smearCamera.clearFlags = CameraClearFlags.Color;
         m_smearCamera.Render();
         m_smearCamera.clearFlags = flags;
-
-        // Zack: Kick off our delayed render routine
-        StartCoroutine(RenderSmearsDelayed_Routine());
-    }
-
-    private IEnumerator RenderSmearsDelayed_Routine()
-    {
-        var waitForSeconds = new WaitForSeconds(.05f);
-        while (enabled)
-        {
-            m_smearCamera.Render();
-            yield return waitForSeconds;
-        }
     }
 
     private void Update()
     {
+        if (!Application.isPlaying)
+        {
+            var scaleFactor = transform.localScale.x * m_fogPlaneTransform.localScale.x;
+            m_smearCamera.orthographicSize = scaleFactor / 2f;
+
+            var yScale = m_smearCamera.farClipPlane / transform.localScale.x;
+            yScale /= 2f;
+            m_smearCamera.transform.localPosition = new Vector3(m_smearCamera.transform.localPosition.x, yScale, m_smearCamera.transform.localPosition.z);
+            return;
+        }
+        
         FollowMainCamera();
+        m_smearCamera.Render();
     }
 
     private void FollowMainCamera()
@@ -77,6 +75,12 @@ public class FogOfWar : MonoBehaviour
         targetTransform.position = sourceTransform.position;
         targetTransform.rotation = sourceTransform.rotation;
         targetTransform.localScale = sourceTransform.localScale;
+
+        m_outputRenderer.depth = m_mainCamera.depth + 1;
+        m_outputRenderer.nearClipPlane = m_mainCamera.nearClipPlane;
+        m_outputRenderer.farClipPlane = m_mainCamera.farClipPlane;
+        m_outputRenderer.orthographic = m_mainCamera.orthographic;
+        m_outputRenderer.orthographicSize = m_mainCamera.orthographicSize;
     }
 
     #endregion
@@ -88,6 +92,9 @@ public class FogOfWar : MonoBehaviour
 
     [SerializeField]
     private Camera m_outputRenderer = null;
+
+    [SerializeField]
+    private Transform m_fogPlaneTransform = null;
 
     private Camera m_mainCamera = null;
 

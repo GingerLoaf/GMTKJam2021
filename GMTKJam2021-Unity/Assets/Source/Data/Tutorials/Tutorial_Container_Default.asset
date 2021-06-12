@@ -33,3 +33,12 @@ MonoBehaviour:
     Url: https://github.com/GingerLoaf/GMTKJam2021/blob/main/GMTKJam2021-Unity/Assets/Source/Documentation/VisualScripting.md
     Image: {fileID: 2800000, guid: be2799432dd1e4145915fb45e2416494, type: 3}
     Tutorial: {fileID: 0}
+  - OrderInView: 2
+    Heading:
+      m_Untranslated: Fog of War
+    Text:
+      m_Untranslated: Details about the Fog of War Feature
+    Metadata: 
+    Url: https://github.com/GingerLoaf/GMTKJam2021/blob/main/GMTKJam2021-Unity/Assets/Source/Documentation/FogOfWar.md
+    Image: {fileID: 2800000, guid: 02d2e74740848c94abae6c129f140633, type: 3}
+    Tutorial: {fileID: 0}
