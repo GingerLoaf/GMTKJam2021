@@ -10,8 +10,6 @@ public class UnitBehavoir : MonoBehaviour
 {
     //public GameObject unit;
     public int Health;
-    public int oxygenLevel;
-    public float gartherSpeed;
     public float fogClear;
     public UnitStates myState;
     public NavMeshAgent myAgent;
@@ -19,27 +17,45 @@ public class UnitBehavoir : MonoBehaviour
     public int maxResource = 10;
     public float maxTimer;
     public float currentTimer;
-    public int gatherRate;
+    public Classes myClass = Classes.NONE;
+    
     public Transform baseTranform;
-    public int oxygenLose;
     bool isConnectedToBase;
-    public bool dumbUnit;
-    public GameObject destinationObject;
+
+    [Header("Gathering Properties")]
+    public OreTypes curMinningType = OreTypes.METAL;
+    public IntReference maxCarryCapcity = null;
+    public float gatherRate = 1;
+    public float gatherDst = 1;
+    public int curMinedOxygen = 0;
+    public int curMinedMetal = 0;
+    float timeBetweenGathering = 0;
+
+    [Header("Breathing Properties")]
     public float breathtimer;
     public float breathRate;
-    public IntReference totalOxygen;
+    public int oxygenLevel;
     public IntReference maxOxygen; 
     
+    [Header("Global Properties")]
+    public IntReference totalOxygen;
+    public IntReference totalMetal;
+
+    [Header("Debug")]
+    public bool dumbUnit;
+    public GameObject destinationObject;
 
     // Start is called before the first frame update
-    void Start()
+    public void Init(Transform _base, Classes _class)
     {
         myState = UnitStates.IDLE;
         myAgent = GetComponent<NavMeshAgent>();
         oxygenLevel = 20;
+        //Debug
+        isConnectedToBase = true;
+        baseTranform = _base;
+        myClass = _class;
         //unit = gameObject;
-
-
     }
 
     // Update is called once per frame
@@ -50,9 +66,8 @@ public class UnitBehavoir : MonoBehaviour
             switch (myState)
             {
                 case UnitStates.MOVING:
-                    if (myAgent.remainingDistance < 1)
+                    if (Vector3.Distance(transform.position, myAgent.destination) < 1)
                     {
-
                         switch (destinationObject.tag)
                         {
                             case "resource":
@@ -62,15 +77,16 @@ public class UnitBehavoir : MonoBehaviour
                                 myState = UnitStates.ATTACKING;
                                 break;
                             case "terrain":
-                                myState = UnitStates.IDLE;
+                                myState = UnitStates.MOVING;
                                 break;
                             case "terrarium":
-                                myState = UnitStates.IDLE;
+                                myState = UnitStates.DEPOSIT;
                                 break;
                             default:
+                                myState = UnitStates.IDLE;
                                 break;
                         }
-                        myState = UnitStates.IDLE;
+                        //myState = UnitStates.IDLE;
                     }
                     break;
                 case UnitStates.ATTACKING:
@@ -80,38 +96,65 @@ public class UnitBehavoir : MonoBehaviour
                 case UnitStates.IDLE:
                     break;
                 case UnitStates.GATHERING:
-                    if (currentTimer >= maxTimer)
+                    if (timeBetweenGathering >= gatherRate)
                     {
-                        if (currentResource < maxResource)
+                        if (destinationObject.GetComponent<OreDeposit>())
                         {
-                            currentResource += 1;
-                            // destination to remove resources
-                        }
-                        else
-                        {
-                            if (dumbUnit == true)
+                            OreDeposit _curDeposit = destinationObject.GetComponent<OreDeposit>();
+                            bool _isGathering = false;
+                            switch (_curDeposit.Type)
                             {
-                                myState = UnitStates.IDLE;
+                                case OreTypes.OXYGEN:
+                                    _isGathering = isGatheringResource(ref curMinedOxygen, ref _curDeposit.depositAmount, 
+                                        maxCarryCapcity.Value);
+                                    break;
+                                case OreTypes.METAL:
+                                    _isGathering = isGatheringResource(ref curMinedMetal, ref _curDeposit.depositAmount, 
+                                        maxCarryCapcity.Value);
+                                    break;
+                                default:
+                                    break;
                             }
-                            else
+                            if (!_isGathering)
                             {
-                                moveUnit(baseTranform.position, baseTranform.gameObject);
+                                if (dumbUnit == true)
+                                {
+                                    myState = UnitStates.IDLE;
+                                }
+                                else
+                                {
+                                    moveUnit(baseTranform.position, baseTranform.gameObject);
+                                }
+                                //print(curMinedMetal);
+                                //print(cur);
                             }
-
+                            timeBetweenGathering = 0;
                         }
-
                     }
                     else
                     {
-                        currentTimer += Time.deltaTime * gartherSpeed;
+                        timeBetweenGathering += Time.deltaTime;
                     }
 
+                    break;
+                case UnitStates.DEPOSIT:
+                    if (curMinedOxygen > 0)
+                    {
+                        totalOxygen.Value += curMinedOxygen;
+                        curMinedOxygen = 0;
+                    }
+
+                    if (curMinedMetal > 0)
+                    {
+                        totalMetal.Value += curMinedMetal;
+                        curMinedMetal = 0;
+                    }
+                    myState = UnitStates.IDLE;
                     break;
                 case UnitStates.SUFFICATION:
                     
                     if (currentTimer >= maxTimer)
                     {
-
                         takeDamage(1);
                         currentTimer = 0;
                         if (myState == UnitStates.DIED)
@@ -181,12 +224,18 @@ public class UnitBehavoir : MonoBehaviour
         {
             Debug.Log("piss off im dead");
         }
+    }
 
-       
-        
-        
-
-
+    public bool isGatheringResource(ref int _statToIncrease, ref int _statToDecrease, int _limit)
+    {
+        if (_statToIncrease < _limit && _statToDecrease > 0)
+        {
+            print("called");
+            _statToIncrease++;
+            _statToDecrease--;
+            return true;
+        }
+        return false;
     }
 
     public void moveUnit(Vector3 destination, GameObject _objectTag)
@@ -210,7 +259,7 @@ public class UnitBehavoir : MonoBehaviour
     
 }
 
-public enum UnitStates {MOVING,ATTACKING,IDLE,GATHERING,SUFFICATION,DIED}
-public enum Classes {MINER,CAPTAIN,RECON,SOLDIER }
+public enum UnitStates {MOVING, ATTACKING, IDLE, GATHERING, SUFFICATION, DIED, DEPOSIT}
+public enum Classes {MINER,CAPTAIN,RECON,SOLDIER, NONE }
 
 
