@@ -10,6 +10,7 @@ public class UnitBehavoir : MonoBehaviour
 {
     //public GameObject unit;
     public int Health;
+    public int attack;
     public float fogClear;
     public UnitStates myState;
     public NavMeshAgent myAgent;
@@ -19,12 +20,13 @@ public class UnitBehavoir : MonoBehaviour
     public float currentTimer;
     public Classes myClass = Classes.NONE;
     
+    
     public Transform baseTranform;
     bool isConnectedToBase;
 
     [Header("Gathering Properties")]
     public OreTypes curMinningType = OreTypes.METAL;
-    public IntReference maxCarryCapcity = null;
+    public int maxCarryCapcity = 10;
     public float gatherRate = 1;
     public float gatherDst = 1;
     public int curMinedOxygen = 0;
@@ -51,6 +53,7 @@ public class UnitBehavoir : MonoBehaviour
         myState = UnitStates.IDLE;
         myAgent = GetComponent<NavMeshAgent>();
         oxygenLevel = 20;
+        maxCarryCapcity = 5;
         //Debug
         isConnectedToBase = true;
         baseTranform = _base;
@@ -106,11 +109,11 @@ public class UnitBehavoir : MonoBehaviour
                             {
                                 case OreTypes.OXYGEN:
                                     _isGathering = isGatheringResource(ref curMinedOxygen, ref _curDeposit.depositAmount, 
-                                        maxCarryCapcity.Value);
+                                        maxCarryCapcity);
                                     break;
                                 case OreTypes.METAL:
                                     _isGathering = isGatheringResource(ref curMinedMetal, ref _curDeposit.depositAmount, 
-                                        maxCarryCapcity.Value);
+                                        maxCarryCapcity);
                                     break;
                                 default:
                                     break;
@@ -238,6 +241,35 @@ public class UnitBehavoir : MonoBehaviour
         return false;
     }
 
+    public void DoUpgrade()
+    {
+        switch (myClass)
+        {
+            case Classes.MINER:
+                maxCarryCapcity += 5;
+                gatherRate += 1;
+                gatherDst += 1;
+                myAgent.speed += 1;
+                break;
+            case Classes.CAPTAIN:
+                break;
+            case Classes.RECON:
+                fogClear += 2;
+                myAgent.speed += 7;
+                Health += 5;
+                breathRate += 10;
+                break;
+            case Classes.SOLDIER:
+                attack += 3;
+                myAgent.speed += 3;
+                Health += 15;
+                breathRate += 3;
+                break;
+            case Classes.NONE:
+                Debug.Log("What did you do" + " why did you do it");
+                break;
+        }
+    }
     public void moveUnit(Vector3 destination, GameObject _objectTag)
     {
         myAgent.SetDestination(destination);
