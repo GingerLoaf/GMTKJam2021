@@ -24,6 +24,19 @@ public class EnemyManager : MonoBehaviour
                 continue;
             }
 
+            if (currentEnemy.ClosestCombatant != null)
+            {
+                var distanceFromCombatant = Vector3.Distance(currentEnemy.StartPosition, currentEnemy.ClosestCombatant.transform.position);
+                if (!currentEnemy.ClosestCombatant.IsAlive || distanceFromCombatant > currentEnemy.TargetDistance)
+                {
+                    currentEnemy.ClosestCombatant = null;
+                }
+                else
+                {
+                    continue;
+                }
+            }
+
             Tuple<int, float> indexToDistancePair = null;
             for (var ii = 0; ii < combatants.Count; ii++)
             {
@@ -33,7 +46,18 @@ public class EnemyManager : MonoBehaviour
                     continue;
                 }
 
-                var distanceFromCombatant = Vector3.Distance(currentEnemy.transform.position, currentCombatant.transform.position);
+                if (!currentCombatant.IsAlive)
+                {
+                    continue;
+                }
+
+                // Zack: Use the starting position of the enemy to keep things anchored to their region of influence
+                var distanceFromCombatant = Vector3.Distance(currentEnemy.StartPosition, currentCombatant.transform.position);
+                if (distanceFromCombatant > currentEnemy.TargetDistance)
+                {
+                    continue;
+                }
+
                 if (indexToDistancePair == null || distanceFromCombatant < indexToDistancePair.Item2)
                 {
                     indexToDistancePair = new Tuple<int, float>(ii, distanceFromCombatant);
