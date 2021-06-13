@@ -176,6 +176,7 @@ public class GameManager : MonoBehaviour
                                     if (_unit.myState == UnitStates.INSIDE)
                                     {
                                         GiveUmbilicalCord(_unit);
+                                        
                                     }
 
                                     if (IsOnMesh(_interactionHit.point, _obj, _unit))
@@ -252,7 +253,17 @@ public class GameManager : MonoBehaviour
                                 }
                             }
                             break;
-
+                        case "enemy":
+                            if (lastSelectedObject != null && lastSelectedObject.GetComponent<UnitBehavoir>())
+                            {
+                                UnitBehavoir _curUnit = lastSelectedObject.GetComponent<UnitBehavoir>();
+                                if (IsOnMesh(pointOnCircle(_interactionHit.point, _curUnit.gatherDst), _obj, _curUnit))
+                                {
+                                    lastSelectedObject.GetComponent<Outline>().enabled = false;
+                                    lastSelectedObject = null;
+                                }
+                            }
+                            break;
                         default:
                             print("Not Interactable");
                             break;
@@ -296,6 +307,7 @@ public class GameManager : MonoBehaviour
     public void DockUnit(UnitBehavoir _unit)
     {
         _unit.transform.position = pointWithInCirlce(unitSpawnpoint.position, spawnRadius);
+        _unit.transform.parent = unitSpawnpoint;
     }
 
     public void ReturnAllUnits()
@@ -351,6 +363,11 @@ public class GameManager : MonoBehaviour
         return new Ray(terrarium.position, unitTransfrom.position - terrarium.position).GetPoint(_radius);
     }
 
+    public Vector3 GetClosetPoint(Transform terrarium, Vector3 _point, float _radius)
+    {
+        return new Ray(terrarium.position, _point - terrarium.position).GetPoint(_radius);
+    }
+
     public void GiveUmbilicalCord(UnitBehavoir _unit)
     {
         print("called");
@@ -394,11 +411,11 @@ public class GameManager : MonoBehaviour
         {
             Gizmos.color = Color.blue;
             Vector3 _sweepDir = Vector3.right;
-            Vector3 _startPos = unitSpawnpoint.position + (_sweepDir * terrariumRadius);
+            Vector3 _startPos = terrarium.position + (_sweepDir * terrariumRadius);
             for (int i = 0; i < 8; i++)
             {
                 _sweepDir = Quaternion.AngleAxis(45, Vector3.up) * _sweepDir;
-                Vector3 _nextPos = unitSpawnpoint.position + (_sweepDir * terrariumRadius);
+                Vector3 _nextPos = terrarium.position + (_sweepDir * terrariumRadius);
                 Gizmos.DrawLine(_startPos, _nextPos);
                 _startPos = _nextPos;
             }
