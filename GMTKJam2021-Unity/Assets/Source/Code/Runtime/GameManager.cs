@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
         hasPressedMouse = false;
         oxygenTimer = 0;
         SpawnUnits();
+        UI.Init(units.ToArray());
     }
 
     void SpawnUnits()

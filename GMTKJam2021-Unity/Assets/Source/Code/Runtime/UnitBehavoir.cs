@@ -9,20 +9,20 @@ using UnityAtoms.BaseAtoms;
 public class UnitBehavoir : MonoBehaviour
 {
     //public GameObject unit;
-    public int Health;
+    public int maxHealth;
+    public int health;
     public int attack;
     public float fogClear;
     public UnitStates myState;
     public NavMeshAgent myAgent;
-    public int currentResource = 0;
-    public int maxResource = 10;
-    public float maxTimer;
-    public float currentTimer;
     public Classes myClass = Classes.NONE;
-    
-    
     public Transform baseTranform;
+
+    public Color myColor = Color.white;
+    public string myName = "";
     bool isConnectedToBase;
+
+    public bool hasBeenUpgraded;
 
     [Header("Gathering Properties")]
     public OreTypes curMinningType = OreTypes.METAL;
@@ -46,19 +46,29 @@ public class UnitBehavoir : MonoBehaviour
     [Header("Debug")]
     public bool dumbUnit;
     public GameObject destinationObject;
+    public float maxTimer;
+    public float currentTimer;
+    public TextAsset randomNameText = null;
+    public Renderer suitMat = null;
 
     // Start is called before the first frame update
     public void Init(Transform _base, Classes _class)
     {
         myState = UnitStates.IDLE;
         myAgent = GetComponent<NavMeshAgent>();
-        oxygenLevel = 20;
+        oxygenLevel = maxOxygen;
         maxCarryCapcity = 5;
-        //Debug
+        
         isConnectedToBase = true;
         baseTranform = _base;
         myClass = _class;
-        //unit = gameObject;
+
+        myColor = Random.ColorHSV();
+
+        string[] _names = randomNameText.text.Split(',');
+        myName = _names[Random.Range(0, _names.Length)];
+
+        suitMat.material.color = myColor;
     }
 
     // Update is called once per frame
@@ -243,6 +253,7 @@ public class UnitBehavoir : MonoBehaviour
 
     public void DoUpgrade()
     {
+        hasBeenUpgraded = true;
         switch (myClass)
         {
             case Classes.MINER:
@@ -256,13 +267,13 @@ public class UnitBehavoir : MonoBehaviour
             case Classes.RECON:
                 fogClear += 2;
                 myAgent.speed += 7;
-                Health += 5;
+                health += 5;
                 breathRate += 10;
                 break;
             case Classes.SOLDIER:
                 attack += 3;
                 myAgent.speed += 3;
-                Health += 15;
+                health += 15;
                 breathRate += 3;
                 break;
             case Classes.NONE:
@@ -281,8 +292,8 @@ public class UnitBehavoir : MonoBehaviour
     }
     public void takeDamage(int _damge)
     {
-        Health -= _damge;
-        if (Health <= 0)
+        health -= _damge;
+        if (health <= 0)
         {
             myState = UnitStates.DIED;
         }
