@@ -74,6 +74,7 @@ public class UnitBehavoir : MonoBehaviour
         maxCarryCapcity = 5;
         breathRate = 10;
         umbiCordLength = 100f;
+        health = maxHealth;
 
         gatherDst = 1;
         breathTimer = Random.Range(0, breathRate * 0.75f);
@@ -102,6 +103,7 @@ public class UnitBehavoir : MonoBehaviour
                 break;
             case Classes.SOLDIER:
                 maxHealth += 5;
+                health = maxHealth;
                 attack += 2;
                 myAgent.speed += 1;
                 break;
@@ -144,6 +146,14 @@ public class UnitBehavoir : MonoBehaviour
                     }
                     break;
                 case UnitStates.ATTACKING:
+                    var enemyAttacked = destinationObject.GetComponent<Enemy>();
+
+                    enemyAttacked.DoDamage(attack);
+                    if (enemyAttacked.IsAlive == false)
+                    {
+                        myState = UnitStates.IDLE;
+                    }
+                    myAgent.isStopped = true;
                     // needs enemy damage script
                     break;
                 case UnitStates.IDLE:
@@ -205,7 +215,7 @@ public class UnitBehavoir : MonoBehaviour
                         curMinedMetal = 0;
                     }
                     GameManager.GM.RemoveUmbilicalCord(this);
-                    GameManager.GM.DockUnit(this);
+                    //GameManager.GM.DockUnit(this);
                     myState = UnitStates.INSIDE;
                     break;
                 case UnitStates.SUFFICATION:
@@ -315,12 +325,14 @@ public class UnitBehavoir : MonoBehaviour
                 myAgent.speed += 7;
                 health += 5;
                 breathRate += 10;
+                health = maxHealth;
                 break;
             case Classes.SOLDIER:
                 attack += 3;
                 myAgent.speed += 2;
                 maxHealth += 15;
                 breathRate += 3;
+                health = maxHealth;
                 break;
             case Classes.NONE:
                 Debug.Log("What did you do" + " why did you do it");
@@ -329,12 +341,20 @@ public class UnitBehavoir : MonoBehaviour
     }
     public void moveUnit(Vector3 destination, GameObject _objectTag)
     {
-        myAgent.enabled = false;
-        myAgent.enabled = true;
-        myAgent.SetDestination(destination);
+        if (myState == UnitStates.INSIDE)
+        {
+            transform.position = destination;
+        }
 
+        else
+        {
+            myAgent.SetDestination(destination);
+        }
+        
         myState = UnitStates.MOVING;
         destinationObject = _objectTag;
+    
+    
     }
 
     public void takeDamage(int _damge)

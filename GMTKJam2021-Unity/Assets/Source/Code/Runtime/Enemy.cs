@@ -51,6 +51,12 @@ public class Enemy : AbstractDiscoverableEntity<Enemy>
     public void DoDamage(int damage)
     {
         m_health.Value -= damage;
+        if (m_health <= 0 )
+        {
+            Destroy(gameObject, 3f);
+            
+        }
+        
     }
 
     #endregion
@@ -64,7 +70,7 @@ public class Enemy : AbstractDiscoverableEntity<Enemy>
     }
 
     #endregion
-
+    
     #region Private Methods
 
     private void OnDrawGizmos()
