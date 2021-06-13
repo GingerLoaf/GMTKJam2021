@@ -12,6 +12,7 @@ public class UnitBehavoir : MonoBehaviour
     public int maxHealth;
     public int health;
     public int attack;
+    public bool isSufficating;
     public FogCutout fogClear;
     public UnitStates myState;
     public NavMeshAgent myAgent;
@@ -78,6 +79,7 @@ public class UnitBehavoir : MonoBehaviour
         breathRate = 10;
         umbiCordLength = 100f;
         health = maxHealth;
+        isSufficating = false;
 
         gatherDst = 1;
         breathTimer = Random.Range(0, breathRate * 0.75f);
@@ -223,23 +225,6 @@ public class UnitBehavoir : MonoBehaviour
                     GameManager.GM.DockUnit(this);
                     myState = UnitStates.INSIDE;
                     break;
-                case UnitStates.SUFFICATION:
-                    
-                    if (currentTimer >= maxTimer)
-                    {
-                        takeDamage(1);
-                        currentTimer = 0;
-                        if (myState == UnitStates.DIED)
-                        {
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        currentTimer += Time.deltaTime;
-                    }
-
-                    break;
                 case UnitStates.DIED:
                     myAgent.enabled = false;
                     break;
@@ -263,12 +248,14 @@ public class UnitBehavoir : MonoBehaviour
 
                             totalOxygen.Value--;
                             oxygenLevel++;
+                            isSufficating = false;
                         }
 
                     }
                     else
                     {
                         totalOxygen.Value--;
+                        isSufficating = false;
                     }
 
                 }
@@ -277,14 +264,23 @@ public class UnitBehavoir : MonoBehaviour
                     if (oxygenLevel <= 0)
                     {
 
-                        myState = UnitStates.SUFFICATION;
+                        isSufficating = true;
                     }
                     else
                     {
                         oxygenLevel--;
                     }
                 }
+                if (isSufficating == true)
+                {
+                    takeDamage(1);
+                }
+                else
+                {
+                    Debug.Log("piss off im dead");
+                }
                 breathTimer = 0;
+                combatant.IsAlive = myState != UnitStates.DIED;
             }
             else
             {
@@ -292,12 +288,7 @@ public class UnitBehavoir : MonoBehaviour
             }
 
         }
-        else
-        {
-            Debug.Log("piss off im dead");
-        }
-
-        combatant.IsAlive = myState != UnitStates.DIED;
+        
     }
 
     public bool isGatheringResource(ref int _statToIncrease, ref int _statToDecrease, int _limit)
@@ -366,7 +357,7 @@ public class UnitBehavoir : MonoBehaviour
     }
 }
 
-public enum UnitStates {MOVING, ATTACKING, IDLE, INSIDE, GATHERING, SUFFICATION, DIED, DEPOSIT}
+public enum UnitStates {MOVING, ATTACKING, IDLE, INSIDE, GATHERING, DIED, DEPOSIT}
 public enum Classes {MINER,CAPTAIN,RECON,SOLDIER, NONE }
 
 
