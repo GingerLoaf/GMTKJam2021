@@ -73,7 +73,7 @@ public class UnitBehavoir : MonoBehaviour
 
         maxHealth = 40;
         attack = 1;
-        fogClear.m_cutoutScale = 2;
+        fogClear.m_cutoutScale = 10;
         myAgent.speed = 2;
         maxCarryCapcity = 5;
         breathRate = 10;
@@ -105,7 +105,7 @@ public class UnitBehavoir : MonoBehaviour
                 break;
             case Classes.RECON:
                 myAgent.speed += 3;
-                breathRate += 2;
+                //breathRate += 2;
                 fogClear.m_cutoutScale += 2;
                 break;
             case Classes.SOLDIER:
@@ -299,6 +299,10 @@ public class UnitBehavoir : MonoBehaviour
             _statToIncrease++;
             _statToDecrease--;
             return true;
+        }
+        if (_statToDecrease <= 0)
+        {
+            destinationObject.gameObject.SetActive(false);
         }
         return false;
     }
