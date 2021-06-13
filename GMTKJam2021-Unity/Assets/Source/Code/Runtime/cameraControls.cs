@@ -10,6 +10,8 @@ public class cameraControls : MonoBehaviour
     public float panBorder = 10f;
     [Range(5,10)]
     public float panSpeed = 5;
+    [Range(5,10)]
+    public float zoomSpeed = 5;
     public float range = 10f;
     public Vector3 camerapos;
     public Camera mainCamera;
@@ -64,6 +66,22 @@ public class cameraControls : MonoBehaviour
         {
             mainCamera.transform.position = pos;
         }
+        if (Mouse.current.scroll.ReadValue().y > 0)
+        {
+            float Zoom = Mouse.current.scroll.ReadValue().normalized.y * zoomSpeed;
+            mainCamera.orthographicSize -= Zoom;
+            float clampCamSize = Mathf.Clamp(mainCamera.orthographicSize, 7f, 80f);
+            mainCamera.orthographicSize = clampCamSize;
+        }
+        if(Mouse.current.scroll.ReadValue().y < 0)
+        {
+            
+            float Zoom = Mouse.current.scroll.ReadValue().normalized.y * -zoomSpeed;
+            mainCamera.orthographicSize += Zoom;
+            float clampCamSize = Mathf.Clamp(mainCamera.orthographicSize, 7f, 80f);
+            mainCamera.orthographicSize = clampCamSize;
+        }
+        //Debug.Log(Mouse.current.scroll.ReadValue());
 
     }
 
