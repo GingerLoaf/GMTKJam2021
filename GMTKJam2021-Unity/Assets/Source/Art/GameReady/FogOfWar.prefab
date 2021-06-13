@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 123f3053d60a2614cacce8a570e205b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CutoutPrefab: {fileID: 2626980715884828168, guid: 7b2015c3e2c90754a89df68ecb6e1446,
+    type: 3}
   m_smearCamera: {fileID: 1046658659676330907}
   m_outputRenderer: {fileID: 1046658659668866020}
   m_fogPlaneTransform: {fileID: 1046658659254837215}

@@ -1,21 +1,51 @@
-using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteAlways]
-public class FogOfWar : MonoBehaviour
+public class FogOfWar : AbstractSingletonBehaviour<FogOfWar>
 {
 
-    #region Private Methods
+    #region Public Methods
 
-    private void OnEnable()
+    public void RegisterCutout(FogCutout cutout)
+    {
+        var instance = Instantiate(CutoutPrefab);
+        m_instantiatedCutouts[cutout] = instance;
+    }
+
+    public void UnregisterCutout(FogCutout cutout)
+    {
+        if (m_instantiatedCutouts.TryGetValue(cutout, out var foundCutout))
+        {
+            m_instantiatedCutouts.Remove(cutout);
+            DestroyImmediate(foundCutout);
+        }
+    }
+
+    #endregion
+
+    #region Protected Methods
+
+    /// <inheritdoc />
+    protected override void OnSingletonDisabled()
+    {
+        // Do nothing
+    }
+
+    /// <inheritdoc />
+    protected override void OnSingletonEnabled()
     {
         if (!Application.isPlaying)
         {
             return;
         }
-        
+
         InitializeFog();
     }
+
+    #endregion
+
+    #region Private Methods
 
     private void InitializeFog()
     {
@@ -63,9 +93,16 @@ public class FogOfWar : MonoBehaviour
             m_smearCamera.transform.localPosition = new Vector3(m_smearCamera.transform.localPosition.x, yScale, m_smearCamera.transform.localPosition.z);
             return;
         }
-        
+
         FollowMainCamera();
         m_smearCamera.Render();
+
+        foreach (var kvp in m_instantiatedCutouts)
+        {
+            kvp.Value.transform.localScale = Vector3.one * kvp.Key.CutoutScale;
+            var cutoutSource = kvp.Key.transform.position;
+            kvp.Value.transform.position = cutoutSource;
+        }
     }
 
     private void FollowMainCamera()
@@ -86,6 +123,11 @@ public class FogOfWar : MonoBehaviour
     #endregion
 
     #region Private Fields
+
+    private readonly Dictionary<FogCutout, GameObject> m_instantiatedCutouts = new Dictionary<FogCutout, GameObject>();
+
+    [SerializeField]
+    private GameObject CutoutPrefab = null;
 
     [SerializeField]
     private Camera m_smearCamera = null;
