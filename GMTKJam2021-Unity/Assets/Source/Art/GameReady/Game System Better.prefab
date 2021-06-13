@@ -372,7 +372,7 @@ MonoBehaviour:
     _variableInstancer: {fileID: 0}
   numUnits: 10
   unitSpawnpoint: {fileID: 0}
-  spawnRadius: 5
+  spawnRadius: 6
   unitPrefab: {fileID: 4839445751199475439, guid: 6726859706b3e9d48ab860f2050b2314,
     type: 3}
   unitUmbilicalCordPrefab: {fileID: 6401189117950442005, guid: c21db9c58396ff94183c353a02fa8cd1,

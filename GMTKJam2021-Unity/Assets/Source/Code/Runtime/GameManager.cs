@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour
         {
             if (lastHighlightedObject == null && _interactionHit.collider.GetComponent<Outline>())
             {
-                print("Called: " + _interactionHit.collider);
+                //print("Called: " + _interactionHit.collider);
                 _interactionHit.collider.GetComponent<Outline>().enabled = true;
                 _interactionHit.collider.GetComponent<Outline>().OutlineColor = highlightColor;
                 lastHighlightedObject = _interactionHit.collider.gameObject;
@@ -179,8 +179,6 @@ public class GameManager : MonoBehaviour
 
                                     if (IsOnMesh(_interactionHit.point, _obj, _unit))
                                     {
-                                        
-
                                         lastSelectedObject.GetComponent<Outline>().enabled = false;
                                         lastSelectedObject = null;
                                     }
@@ -246,6 +244,7 @@ public class GameManager : MonoBehaviour
                                 UnitBehavoir _curUnit = lastSelectedObject.GetComponent<UnitBehavoir>();
                                 if (IsOnMesh(pointOnCircle(_interactionHit.point, _curUnit.gatherDst), _obj, _curUnit))
                                 {
+                                    //print("called");
                                     lastSelectedObject.GetComponent<Outline>().enabled = false;
                                     lastSelectedObject = null;
                                 }
@@ -323,11 +322,12 @@ public class GameManager : MonoBehaviour
     bool IsOnMesh(Vector3 _point, GameObject _destination, UnitBehavoir _agent)
     {
         NavMeshHit _navHit;
-        if (NavMesh.SamplePosition(_point, out _navHit, 1f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(_point, out _navHit, 5f, NavMesh.AllAreas))
         {
             _agent.moveUnit(_navHit.position, _destination);
             return true;
         }
+        print("Object not on Nav Mesh");
         return false;
     }
 
@@ -369,7 +369,7 @@ public class GameManager : MonoBehaviour
         get { return lastSelectedObject; }
     }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         if (unitSpawnpoint != null)
         {
