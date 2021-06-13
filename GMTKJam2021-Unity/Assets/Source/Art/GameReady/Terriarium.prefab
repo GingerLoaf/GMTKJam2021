@@ -78,7 +78,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 28
-  m_Speed: 10
+  m_Speed: 3
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -101,8 +101,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 31.827148, y: 23.00577, z: 32.883484}
-  m_Center: {x: -0.017747879, y: 11.002885, z: 0.08931351}
+  m_Size: {x: 31.827148, y: 21.931751, z: 32.883484}
+  m_Center: {x: -0.017747879, y: 10.465876, z: 0.08931351}
 --- !u!114 &2398123974852442469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8520,12 +8520,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a16b76a227b4c06beb50b04a1fba4aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_cutoutScale:
-    _usage: 0
-    _value: 20
-    _constant: {fileID: 0}
-    _variable: {fileID: 0}
-    _variableInstancer: {fileID: 0}
+  m_cutoutScale: 50
 --- !u!1 &2398123974924119973
 GameObject:
   m_ObjectHideFlags: 0
@@ -9271,7 +9266,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 8315
+  m_VersionIndex: 8318
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -9857,7 +9852,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3751
+  m_VersionIndex: 3754
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
