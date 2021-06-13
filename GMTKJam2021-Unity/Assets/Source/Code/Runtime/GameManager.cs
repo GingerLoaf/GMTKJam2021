@@ -83,9 +83,11 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < numUnits; i++)
         {              
             UnitBehavoir _curUnit = Instantiate(unitPrefab, 
-                pointWithInCirlce(unitSpawnpoint.position, spawnRadius), 
+                UnitPoint(i), 
                 Quaternion.identity).GetComponent<UnitBehavoir>();
-            
+
+            units.Add(_curUnit);
+
             if (i < 3)
             {
                 _curUnit.Init(terrarium, Classes.MINER);
@@ -103,7 +105,7 @@ public class GameManager : MonoBehaviour
                 _curUnit.Init(terrarium, Classes.CAPTAIN);
             }
             
-            units.Add(_curUnit);
+            ;
         }
     }
 
@@ -302,7 +304,7 @@ public class GameManager : MonoBehaviour
     public void DockUnit(UnitBehavoir _unit)
     {
         _unit.myAgent.enabled = false;
-        _unit.transform.position = pointWithInCirlce(unitSpawnpoint.position, spawnRadius);
+        _unit.transform.position = UnitPoint(units.IndexOf(_unit));
         _unit.transform.parent = unitSpawnpoint;
     }
 
@@ -351,6 +353,14 @@ public class GameManager : MonoBehaviour
     {
         Vector2 _spawnCircle = (Random.insideUnitCircle * _radius);
         return new Vector3(_spawnCircle.x, 0, _spawnCircle.y) + _point;
+    }
+
+    Vector3 UnitPoint(int _unitNum)
+    {
+        //print(_unitNum);
+        Vector3 _sweepDir = Vector3.right;
+        _sweepDir = Quaternion.AngleAxis(36 * _unitNum, Vector3.up) * _sweepDir;
+        return unitSpawnpoint.position + (_sweepDir * spawnRadius);
     }
 
     Vector3 pointOnCircle(Vector3 _point, float _radius)
