@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1655156973578108301}
   - component: {fileID: 1655156973578108302}
   - component: {fileID: 1655156973578108307}
+  - component: {fileID: 7906721687407278533}
+  - component: {fileID: 1908770924121064510}
   m_Layer: 0
   m_Name: Terriarium
   m_TagString: terrarium
@@ -8491,6 +8493,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_cutoutScale: 50
+--- !u!114 &7906721687407278533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655156973578108296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"collection":{"$content":[{"name":"NavMeshAgent","value":{"$content":0,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"Animator","value":{"$content":1,"$type":"UnityEngine.Object"},"$version":"A"},{"name":"WalkingAnimationName","value":{"$content":"isWalking","$type":"System.String"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 1655156973578108300}
+    - {fileID: 1705398006129929361}
+--- !u!114 &1908770924121064510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1655156973578108296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efe58df89b5b74a97a123b5ed2b70422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: 3a86ded87e8a17e478e70d0a1c626162, type: 2}
 --- !u!1 &1655156973642738510
 GameObject:
   m_ObjectHideFlags: 0
