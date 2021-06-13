@@ -163,7 +163,8 @@ internal static class WristSlapper
     [InitializeOnLoadMethod]
     internal static void UnityEntryPoint()
     {
-        StartSlapperProcessAsync();
+        // Fuck all y'all
+        //StartSlapperProcessAsync();
     }
 
 }
