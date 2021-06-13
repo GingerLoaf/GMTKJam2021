@@ -394,9 +394,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
     public GameObject FocusedObject
     {
-        get { return lastSelectedObject; }
+        get { return terrarium.gameObject; }
     }
 
     private void OnDrawGizmos()
