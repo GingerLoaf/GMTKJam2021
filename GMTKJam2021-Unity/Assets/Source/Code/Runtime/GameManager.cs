@@ -24,7 +24,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     float spawnRadius = 3;
     [SerializeField]
-    GameObject unitPrefab = null;
+    GameObject unitPrefab = null, unitUmbilicalCordPrefab = null;
+
 
     [Header("Terrarium Properties")]
     [SerializeField]
@@ -54,10 +55,22 @@ public class GameManager : MonoBehaviour
     float oxygenTimer = 0;
 
     List<UnitBehavoir> units = new List<UnitBehavoir>();
+    List<UmbilicalCordBehavior> umbilicalCordBehaviors = new List<UmbilicalCordBehavior>();
+
+    public static GameManager GM = null;
 
     // Start is called before the first frame update
     void Awake()
     {
+        if (GM != null)
+        {
+            Destroy(GM);
+        }
+        else
+        {
+            GM = this;
+        }
+
         hasPressedMouse = false;
         oxygenTimer = 0;
         SpawnUnits();
@@ -71,7 +84,24 @@ public class GameManager : MonoBehaviour
             UnitBehavoir _curUnit = Instantiate(unitPrefab, 
                 pointWithInCirlce(unitSpawnpoint.position, spawnRadius), 
                 Quaternion.identity).GetComponent<UnitBehavoir>();
-            _curUnit.Init(terrarium, Classes.CAPTAIN);
+            
+            if (i < 3)
+            {
+                _curUnit.Init(terrarium, Classes.MINER);
+            }
+            else if (i >= 3 && i < 6)
+            {
+                _curUnit.Init(terrarium, Classes.SOLDIER);
+            }
+            else if(i >= 6 && i < 9)
+            {
+                _curUnit.Init(terrarium, Classes.RECON);
+            }
+            else
+            {
+                _curUnit.Init(terrarium, Classes.CAPTAIN);
+            }
+            
             units.Add(_curUnit);
         }
     }
@@ -141,8 +171,16 @@ public class GameManager : MonoBehaviour
                             {
                                 if (lastSelectedObject.GetComponent<UnitBehavoir>())
                                 {
-                                    if (IsOnMesh(_interactionHit.point, _obj, lastSelectedObject.GetComponent<UnitBehavoir>()))
+                                    UnitBehavoir _unit = lastSelectedObject.GetComponent<UnitBehavoir>();
+                                    if (_unit.myState == UnitStates.INSIDE)
                                     {
+                                        GiveUmbilicalCord(_unit);
+                                    }
+
+                                    if (IsOnMesh(_interactionHit.point, _obj, _unit))
+                                    {
+                                        
+
                                         lastSelectedObject.GetComponent<Outline>().enabled = false;
                                         lastSelectedObject = null;
                                     }
@@ -179,9 +217,26 @@ public class GameManager : MonoBehaviour
                             {
                                 if (lastSelectedObject != null && lastSelectedObject != _obj)
                                 {
-                                    lastSelectedObject.GetComponent<Outline>().enabled = false;
+                                    if (lastSelectedObject.GetComponent<UnitBehavoir>())
+                                    {
+                                        if (IsOnMesh(_interactionHit.point, _obj, lastSelectedObject.GetComponent<UnitBehavoir>()))
+                                        {
+                                            lastSelectedObject.GetComponent<Outline>().enabled = false;
+                                            lastSelectedObject = null;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        lastSelectedObject.GetComponent<Outline>().enabled = false;
+                                        lastSelectedObject = _obj;
+                                    }
+                                    
                                 }
-                                lastSelectedObject = _obj;
+                                else
+                                {
+                                    lastSelectedObject = _obj;
+                                }
+                                
                             }
                             //expand terrarium interaction
                             break;
@@ -237,12 +292,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void DockUnit(UnitBehavoir _unit)
+    {
+        _unit.transform.position = pointWithInCirlce(unitSpawnpoint.position, spawnRadius);
+    }
+
     public void ReturnAllUnits()
     {
         for (int i = 0; i < units.Count; i++)
         {
             NavMeshHit _navHit;
-            if (NavMesh.SamplePosition(pointWithInCirlce(unitSpawnpoint.position, spawnRadius), out _navHit, 1f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(pointWithInCirlce(unitSpawnpoint.position, 40), out _navHit, 1f, NavMesh.AllAreas))
             {
                 units[i].moveUnit(_navHit.position, terrarium.gameObject);
             }
@@ -282,6 +342,26 @@ public class GameManager : MonoBehaviour
         Vector3 _spawnCircle = Vector3.right;
         _spawnCircle = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up) * _spawnCircle;
         return new Ray(_point, _spawnCircle).GetPoint(_radius);
+    }
+
+    public void GiveUmbilicalCord(UnitBehavoir _unit)
+    {
+        print("called");
+        UmbilicalCordBehavior _umb = Instantiate(unitUmbilicalCordPrefab, Vector3.zero, Quaternion.identity).GetComponent<UmbilicalCordBehavior>();
+        _umb.Init(_unit, terrarium);
+        umbilicalCordBehaviors.Add(_umb);
+    }
+
+    public void RemoveUmbilicalCord(UnitBehavoir _unit)
+    {
+        for (int i = 0; i < umbilicalCordBehaviors.Count; i++)
+        {
+            if (umbilicalCordBehaviors[i].myUnit == _unit)
+            {
+                Destroy(umbilicalCordBehaviors[i].gameObject);
+                break;
+            }
+        }
     }
 
     public GameObject FocusedObject
