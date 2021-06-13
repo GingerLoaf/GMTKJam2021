@@ -319,6 +319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6286460714666090725}
   - component: {fileID: 6286460714666090726}
+  - component: {fileID: 739827131}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -373,6 +374,7 @@ MonoBehaviour:
   numUnits: 10
   unitSpawnpoint: {fileID: 0}
   spawnRadius: 6
+  terrariumRadius: 40
   unitPrefab: {fileID: 4839445751199475439, guid: 6726859706b3e9d48ab860f2050b2314,
     type: 3}
   unitUmbilicalCordPrefab: {fileID: 6401189117950442005, guid: c21db9c58396ff94183c353a02fa8cd1,
@@ -384,6 +386,24 @@ MonoBehaviour:
   highlightColor: {r: 0, g: 0, b: 0, a: 1}
   SelectedColor: {r: 0, g: 0.38367796, b: 1, a: 1}
   UI: {fileID: 6286460715972892772}
+--- !u!114 &739827131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6286460714666090727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96eeca157ed84eeaa590bdf2d0cc04e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxCombatDistance:
+    _usage: 0
+    _value: 75
+    _constant: {fileID: 0}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
 --- !u!1 &6286460714908443635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,10 +1402,10 @@ MonoBehaviour:
     _variable: {fileID: 11400000, guid: 66b2c2021f386a44cb6ad78f577fcc3e, type: 2}
     _variableInstancer: {fileID: 0}
   totalOxygen:
-    _usage: 0
+    _usage: 2
     _value: 0
     _constant: {fileID: 0}
-    _variable: {fileID: 0}
+    _variable: {fileID: 11400000, guid: d0c10398d4cae25469dcd3116aac85d5, type: 2}
     _variableInstancer: {fileID: 0}
   terrariumCurrentHealth:
     _usage: 2

@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     Transform unitSpawnpoint = null;
     [SerializeField]
     float spawnRadius = 3;
+    public float terrariumRadius = 40;
     [SerializeField]
     GameObject unitPrefab = null, unitUmbilicalCordPrefab = null;
 
@@ -217,7 +218,8 @@ public class GameManager : MonoBehaviour
                                 {
                                     if (lastSelectedObject.GetComponent<UnitBehavoir>())
                                     {
-                                        if (IsOnMesh(_interactionHit.point, _obj, lastSelectedObject.GetComponent<UnitBehavoir>()))
+
+                                        if (IsOnMesh(GetClosetPoint(terrarium, _obj.transform, terrariumRadius),  _obj, lastSelectedObject.GetComponent<UnitBehavoir>()))
                                         {
                                             lastSelectedObject.GetComponent<Outline>().enabled = false;
                                             lastSelectedObject = null;
@@ -344,6 +346,11 @@ public class GameManager : MonoBehaviour
         return new Ray(_point, _spawnCircle).GetPoint(_radius);
     }
 
+    public Vector3 GetClosetPoint(Transform terrarium, Transform unitTransfrom, float _radius)
+    {
+        return new Ray(terrarium.position, unitTransfrom.position - terrarium.position).GetPoint(_radius);
+    }
+
     public void GiveUmbilicalCord(UnitBehavoir _unit)
     {
         print("called");
@@ -379,6 +386,19 @@ public class GameManager : MonoBehaviour
             {
                 _sweepDir = Quaternion.AngleAxis(45, Vector3.up) * _sweepDir;
                 Vector3 _nextPos = unitSpawnpoint.position + (_sweepDir * spawnRadius);
+                Gizmos.DrawLine(_startPos, _nextPos);
+                _startPos = _nextPos;
+            }
+        }
+        if (terrarium != null)
+        {
+            Gizmos.color = Color.blue;
+            Vector3 _sweepDir = Vector3.right;
+            Vector3 _startPos = unitSpawnpoint.position + (_sweepDir * terrariumRadius);
+            for (int i = 0; i < 8; i++)
+            {
+                _sweepDir = Quaternion.AngleAxis(45, Vector3.up) * _sweepDir;
+                Vector3 _nextPos = unitSpawnpoint.position + (_sweepDir * terrariumRadius);
                 Gizmos.DrawLine(_startPos, _nextPos);
                 _startPos = _nextPos;
             }

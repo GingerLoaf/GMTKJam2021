@@ -179,7 +179,7 @@ public class UnitBehavoir : MonoBehaviour
                                 }
                                 else
                                 {
-                                    moveUnit(baseTranform.position, baseTranform.gameObject);
+                                    moveUnit(GameManager.GM.GetClosetPoint(baseTranform, transform, GameManager.GM.terrariumRadius), baseTranform.gameObject);
                                 }
                                 //print(curMinedMetal);
                                 //print(cur);
@@ -206,7 +206,7 @@ public class UnitBehavoir : MonoBehaviour
                         curMinedMetal = 0;
                     }
                     GameManager.GM.RemoveUmbilicalCord(this);
-                    GameManager.GM.DockUnit(this);
+                    //GameManager.GM.DockUnit(this);
                     myState = UnitStates.INSIDE;
                     break;
                 case UnitStates.SUFFICATION:

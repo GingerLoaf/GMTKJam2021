@@ -173,7 +173,7 @@ MonoBehaviour:
   gatherDst: 1
   curMinedOxygen: 0
   curMinedMetal: 0
-  breathtimer: 0
+  breathTimer: 0
   breathRate: 0
   oxygenLevel: 0
   maxOxygen:
