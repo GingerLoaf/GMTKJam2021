@@ -8,11 +8,15 @@ public class UIManager : MonoBehaviour
 {
     [Header("UI Component")]
     [SerializeField]
-    Button repairButton;
+    Text statReadout = null;
     [SerializeField]
-    Button shipUpgradeButton;
+    Button repairButton = null;
     [SerializeField]
-    GameObject unitCard = null;
+    Button shipUpgradeButton = null;
+    [SerializeField]
+    GameObject unitCardPrefab = null;
+    [SerializeField]
+    Transform unitCardSlot = null;
 
     [Header("Properties")]
     [SerializeField]
@@ -22,31 +26,45 @@ public class UIManager : MonoBehaviour
 
     [Header("Global Properties")]
     [SerializeField]
-    IntReference totalMetal = null;
+    IntReference totalMetal = null, totalOxygen = null;
     [SerializeField]
     IntReference terrariumCurrentHealth = null;
     [SerializeField]
     IntReference terrariumMaxHealth = null, repairCost = null, healthPerRpair;
 
+    UnitBehavoir[] units = null;
+
+    GameObject[] spawnedUnitCards = null;
+
     public void Init(UnitBehavoir[] _units) 
     {
-        for (int i = 0; i < _units.Length; i++)
-        {
-            
-        }
+        units = _units;
+        spawnedUnitCards = new GameObject[_units.Length];
     }
 
     // Start is called before the first frame update
     void Start()
     {
         curUpgradeIndex = 0;
+        
+        repairButton.transform.GetChild(0).GetComponent<Text>().text = "repair (" + repairCost.Value + ")";
+
+        shipUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = 
+            "buy ship component (" + shipComponentCosts[curUpgradeIndex] + ")";
     }
 
     // Update is called once per frame
     void Update()
     {
-        repairButton.interactable = (totalMetal.Value > repairCost && terrariumCurrentHealth < terrariumMaxHealth);
-        shipUpgradeButton.interactable = totalMetal.Value > shipComponentCosts[curUpgradeIndex];
+        repairButton.interactable = (totalMetal.Value >= repairCost && terrariumCurrentHealth < terrariumMaxHealth);
+        
+        if (curUpgradeIndex < shipComponentCosts.Length)
+        {
+            shipUpgradeButton.interactable = totalMetal.Value >= shipComponentCosts[curUpgradeIndex];
+        }
+
+        statReadout.text = "Terriarum Health " + terrariumCurrentHealth.Value + " / " + terrariumMaxHealth.Value + 
+            "\nMetal Storage: " + totalMetal.Value + "\nOxygen Storage: " + totalOxygen.Value;
     }
 
     public void UpgradeShip()
@@ -55,13 +73,23 @@ public class UIManager : MonoBehaviour
         {
             totalMetal.Value -= shipComponentCosts[curUpgradeIndex];
             curUpgradeIndex++;
+
+            if (curUpgradeIndex < shipComponentCosts.Length)
+            {
+                shipUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = 
+                    "buy ship component (" + shipComponentCosts[curUpgradeIndex] + ")";
+            }
+            else
+            {
+                Debug.Log("you have won! go home");
+            }
         }
         
     }
 
     public void RepairTerrarium()
     {
-        if (totalMetal.Value > repairCost && terrariumCurrentHealth < terrariumMaxHealth)
+        if (totalMetal.Value >= repairCost && terrariumCurrentHealth < terrariumMaxHealth)
         {
             totalMetal.Value -= repairCost;
             terrariumCurrentHealth.Value += healthPerRpair;
@@ -70,6 +98,19 @@ public class UIManager : MonoBehaviour
 
     public void OpenCrewMenu()
     {
+        for (int i = 0; i < units.Length; i++)
+        {
+            GameObject _curCard = Instantiate(unitCardPrefab, unitCardSlot);
+            _curCard.GetComponent<UnitCardWidget>().Init(units[i]);
+            spawnedUnitCards[i] = _curCard;
+        }
+    }
 
+    public void CloseCrewMenu()
+    {
+        for (int i = 0; i < spawnedUnitCards.Length; i++)
+        {
+            Destroy(spawnedUnitCards[i]);
+        }
     }
 }

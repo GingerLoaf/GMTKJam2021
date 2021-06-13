@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 17.679, y: 0}
-  m_SizeDelta: {x: -35.358, y: 0}
+  m_AnchoredPosition: {x: 30.446, y: 0}
+  m_SizeDelta: {x: -60.892, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3543779100781287643
 MonoBehaviour:
@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 3543779100926704486}
   - component: {fileID: 3543779100926704481}
   - component: {fileID: 3543779100926704480}
-  - component: {fileID: 3543779100926704487}
+  - component: {fileID: 5112915067120672018}
   m_Layer: 5
   m_Name: CrewCard
   m_TagString: Untagged
@@ -163,6 +163,7 @@ RectTransform:
   - {fileID: 3543779100904813433}
   - {fileID: 3543779102686777562}
   - {fileID: 3543779101649062853}
+  - {fileID: 4860017512325876316}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -209,7 +210,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3543779100926704487
+--- !u!114 &5112915067120672018
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -218,17 +219,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 3543779100926704485}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f7d0c4a4d6c97a43861c85f71df72dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: -1
-  m_FlexibleWidth: -1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
+  icon: {fileID: 3543779101841989691}
+  upgradeButton: {fileID: 3543779101649062854}
+  nameText: {fileID: 3543779102857568427}
+  statText: {fileID: 3543779100984548849}
+  upgradeText: {fileID: 4723163121713575890}
+  oxygenBar: {fileID: 3543779102169495020}
+  healthBar: {fileID: 3543779100781287643}
+  totalMetal:
+    _usage: 2
+    _value: 0
+    _constant: {fileID: 0}
+    _variable: {fileID: 11400000, guid: 66b2c2021f386a44cb6ad78f577fcc3e, type: 2}
+    _variableInstancer: {fileID: 0}
+  upgradeCost:
+    _usage: 1
+    _value: 0
+    _constant: {fileID: 11400000, guid: 24f2909002031044a8669b4a9bb54cf5, type: 2}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
 --- !u!1 &3543779100984548855
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +308,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 20
+    m_FontSize: 18
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -307,7 +319,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Stats: Speed++, Attack++, Vision++, Gather++, Carry+'
+  m_Text: 'Stats: O2 Cost--, Speed++, Attack++, Vision++, Gather++, Carry++'
 --- !u!1 &3543779101028387292
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,7 +466,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 35.357788, y: 0}
+  m_SizeDelta: {x: 60.8918, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3543779101091345549
 CanvasRenderer:
@@ -497,7 +509,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'O2:'
+  m_Text: 'Health:
+
+'
 --- !u!1 &3543779101315990437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1540,4 +1554,83 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Name: Capatin mc mc \nLevel: 1"
+  m_Text: "Name: Capatin mc mc \nUpgraded? "
+--- !u!1 &6054994147373866642
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4860017512325876316}
+  - component: {fileID: 8789546695612318405}
+  - component: {fileID: 4723163121713575890}
+  m_Layer: 5
+  m_Name: UpgradeText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4860017512325876316
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6054994147373866642}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3543779100926704486}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -183.74022, y: 13.3864}
+  m_SizeDelta: {x: 119.3404, y: -73.6668}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8789546695612318405
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6054994147373866642}
+  m_CullTransparentMesh: 1
+--- !u!114 &4723163121713575890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6054994147373866642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 3
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: No
