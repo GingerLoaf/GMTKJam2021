@@ -144,17 +144,6 @@ public class UnitBehavoir : MonoBehaviour
                     }
                     break;
                 case UnitStates.ATTACKING:
-                    var enemyAttacked = destinationObject.GetComponent<Enemy>();
-                    
-                    if (enemyAttacked.IsAlive == false)
-                    {
-                        myState = UnitStates.IDLE;
-                    }
-                    else
-                    {
-                        enemyAttacked.DoDamage(attack);
-                    }
-                    myAgent.isStopped = true;
                     // needs enemy damage script
                     break;
                 case UnitStates.IDLE:
@@ -216,7 +205,7 @@ public class UnitBehavoir : MonoBehaviour
                         curMinedMetal = 0;
                     }
                     GameManager.GM.RemoveUmbilicalCord(this);
-                    //GameManager.GM.DockUnit(this);
+                    GameManager.GM.DockUnit(this);
                     myState = UnitStates.INSIDE;
                     break;
                 case UnitStates.SUFFICATION:
@@ -340,20 +329,12 @@ public class UnitBehavoir : MonoBehaviour
     }
     public void moveUnit(Vector3 destination, GameObject _objectTag)
     {
-        if (myState == UnitStates.INSIDE)
-        {
-            transform.position = destination;
-        }
+        myAgent.enabled = false;
+        myAgent.enabled = true;
+        myAgent.SetDestination(destination);
 
-        else
-        {
-            myAgent.SetDestination(destination);
-        }
-        
         myState = UnitStates.MOVING;
         destinationObject = _objectTag;
-    
-    
     }
 
     public void takeDamage(int _damge)

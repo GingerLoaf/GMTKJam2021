@@ -173,11 +173,6 @@ public class GameManager : MonoBehaviour
                                 if (lastSelectedObject.GetComponent<UnitBehavoir>())
                                 {
                                     UnitBehavoir _unit = lastSelectedObject.GetComponent<UnitBehavoir>();
-                                    if (_unit.myState == UnitStates.INSIDE)
-                                    {
-                                        GiveUmbilicalCord(_unit);
-                                        
-                                    }
 
                                     if (IsOnMesh(_interactionHit.point, _obj, _unit))
                                     {
@@ -219,8 +214,8 @@ public class GameManager : MonoBehaviour
                                 {
                                     if (lastSelectedObject.GetComponent<UnitBehavoir>())
                                     {
-
-                                        if (IsOnMesh(GetClosetPoint(terrarium, _obj.transform, terrariumRadius),  _obj, lastSelectedObject.GetComponent<UnitBehavoir>()))
+                                        print("called");
+                                        if (IsOnMesh(GetClosetPoint(terrarium, lastSelectedObject.GetComponent<UnitBehavoir>().transform, terrariumRadius),  _obj, lastSelectedObject.GetComponent<UnitBehavoir>()))
                                         {
                                             lastSelectedObject.GetComponent<Outline>().enabled = false;
                                             lastSelectedObject = null;
@@ -306,6 +301,7 @@ public class GameManager : MonoBehaviour
 
     public void DockUnit(UnitBehavoir _unit)
     {
+        _unit.myAgent.enabled = false;
         _unit.transform.position = pointWithInCirlce(unitSpawnpoint.position, spawnRadius);
         _unit.transform.parent = unitSpawnpoint;
     }
@@ -315,7 +311,7 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < units.Count; i++)
         {
             NavMeshHit _navHit;
-            if (NavMesh.SamplePosition(pointWithInCirlce(unitSpawnpoint.position, 40), out _navHit, 1f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(GetClosetPoint(terrarium, units[i].transform, terrariumRadius), out _navHit, 1f, NavMesh.AllAreas))
             {
                 units[i].moveUnit(_navHit.position, terrarium.gameObject);
             }
@@ -338,6 +334,12 @@ public class GameManager : MonoBehaviour
         NavMeshHit _navHit;
         if (NavMesh.SamplePosition(_point, out _navHit, 5f, NavMesh.AllAreas))
         {
+            if (_agent.myState == UnitStates.INSIDE)
+            {
+                _agent.transform.position = GetClosetPoint(terrarium, _navHit.position, terrariumRadius);
+                GiveUmbilicalCord(_agent);
+            }
+
             _agent.moveUnit(_navHit.position, _destination);
             return true;
         }
@@ -360,11 +362,15 @@ public class GameManager : MonoBehaviour
 
     public Vector3 GetClosetPoint(Transform terrarium, Transform unitTransfrom, float _radius)
     {
+        print("called Get point");
+        Debug.DrawRay(terrarium.position, (unitTransfrom.position - terrarium.position).normalized * terrariumRadius, Color.blue, 10);
         return new Ray(terrarium.position, unitTransfrom.position - terrarium.position).GetPoint(_radius);
     }
 
     public Vector3 GetClosetPoint(Transform terrarium, Vector3 _point, float _radius)
     {
+        print("called Get point");
+        Debug.DrawRay(terrarium.position, (_point - terrarium.position).normalized * terrariumRadius, Color.black, 10);
         return new Ray(terrarium.position, _point - terrarium.position).GetPoint(_radius);
     }
 
