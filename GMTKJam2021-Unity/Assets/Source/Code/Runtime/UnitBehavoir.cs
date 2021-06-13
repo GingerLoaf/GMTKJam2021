@@ -25,6 +25,9 @@ public class UnitBehavoir : MonoBehaviour
 
     public bool hasBeenUpgraded;
 
+    [Header("Combat Properties")]
+    public Combatant combatant = null;
+    
     [Header("Gathering Properties")]
     public OreTypes curMinningType = OreTypes.METAL;
     public int maxCarryCapcity = 10;
@@ -276,6 +279,8 @@ public class UnitBehavoir : MonoBehaviour
         {
             Debug.Log("piss off im dead");
         }
+
+        combatant.IsAlive = myState != UnitStates.DIED;
     }
 
     public bool isGatheringResource(ref int _statToIncrease, ref int _statToDecrease, int _limit)
