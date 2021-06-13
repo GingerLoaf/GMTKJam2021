@@ -74,6 +74,7 @@ public class UnitBehavoir : MonoBehaviour
         maxCarryCapcity = 5;
         breathRate = 10;
         umbiCordLength = 100f;
+        health = maxHealth;
 
         gatherDst = 1;
         breathTimer = Random.Range(0, breathRate * 0.75f);
@@ -102,6 +103,7 @@ public class UnitBehavoir : MonoBehaviour
                 break;
             case Classes.SOLDIER:
                 maxHealth += 5;
+                health = maxHealth;
                 attack += 2;
                 myAgent.speed += 1;
                 break;
@@ -145,14 +147,11 @@ public class UnitBehavoir : MonoBehaviour
                     break;
                 case UnitStates.ATTACKING:
                     var enemyAttacked = destinationObject.GetComponent<Enemy>();
-                    
+
+                    enemyAttacked.DoDamage(attack);
                     if (enemyAttacked.IsAlive == false)
                     {
                         myState = UnitStates.IDLE;
-                    }
-                    else
-                    {
-                        enemyAttacked.DoDamage(attack);
                     }
                     myAgent.isStopped = true;
                     // needs enemy damage script
@@ -326,12 +325,14 @@ public class UnitBehavoir : MonoBehaviour
                 myAgent.speed += 7;
                 health += 5;
                 breathRate += 10;
+                health = maxHealth;
                 break;
             case Classes.SOLDIER:
                 attack += 3;
                 myAgent.speed += 2;
                 maxHealth += 15;
                 breathRate += 3;
+                health = maxHealth;
                 break;
             case Classes.NONE:
                 Debug.Log("What did you do" + " why did you do it");
