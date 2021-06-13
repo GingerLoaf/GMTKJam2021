@@ -38,7 +38,7 @@ public class UnitBehavoir : MonoBehaviour
     float timeBetweenGathering = 0;
 
     [Header("Breathing Properties")]
-    public float breathtimer;
+    public float breathTimer;
     public float breathRate;
     public int oxygenLevel;
     public IntReference maxOxygen; 
@@ -72,8 +72,11 @@ public class UnitBehavoir : MonoBehaviour
         fogClear = 2;
         myAgent.speed = 2;
         maxCarryCapcity = 5;
-        breathRate = 1;
+        breathRate = 10;
         umbiCordLength = 100f;
+
+        gatherDst = 1;
+        breathTimer = Random.Range(0, breathRate * 0.75f);
 
         myColor = Random.ColorHSV();
 
@@ -235,7 +238,7 @@ public class UnitBehavoir : MonoBehaviour
              * oxygenLevel - oxygenLose;
              * }
              */
-            if (breathRate <= breathtimer)
+            if (breathRate <= breathTimer)
             {
                 if (isConnectedToBase == true && totalOxygen.Value > 0)
                 {
@@ -267,11 +270,11 @@ public class UnitBehavoir : MonoBehaviour
                         oxygenLevel--;
                     }
                 }
-                breathtimer = 0;
+                breathTimer = 0;
             }
             else
             {
-                breathtimer += Time.deltaTime;
+                breathTimer += Time.deltaTime;
             }
 
         }
