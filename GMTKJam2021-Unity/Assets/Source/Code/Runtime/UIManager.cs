@@ -17,6 +17,8 @@ public class UIManager : MonoBehaviour
     GameObject unitCardPrefab = null;
     [SerializeField]
     Transform unitCardSlot = null;
+    [SerializeField]
+    GameObject winScreen = null;
 
     [Header("Properties")]
     [SerializeField]
@@ -81,7 +83,8 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("you have won! go home");
+                winScreen.SetActive(true);
+
             }
         }
         
