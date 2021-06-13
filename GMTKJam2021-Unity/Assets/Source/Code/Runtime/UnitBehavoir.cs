@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityAtoms.BaseAtoms;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(NavMeshAgent), typeof(FogCutout))]
 
 public class UnitBehavoir : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class UnitBehavoir : MonoBehaviour
     public int maxHealth;
     public int health;
     public int attack;
-    public float fogClear;
+    public FogCutout fogClear;
     public UnitStates myState;
     public NavMeshAgent myAgent;
     public Classes myClass = Classes.NONE;
@@ -54,10 +54,13 @@ public class UnitBehavoir : MonoBehaviour
     public float currentTimer;
     public TextAsset randomNameText = null;
     public Renderer suitMat = null;
+    
 
     // Start is called before the first frame update
     public void Init(Transform _base, Classes _class)
     {
+        fogClear = GetComponent<FogCutout>();
+
         myState = UnitStates.INSIDE;
         myAgent = GetComponent<NavMeshAgent>();
         oxygenLevel = maxOxygen;
@@ -69,7 +72,7 @@ public class UnitBehavoir : MonoBehaviour
 
         maxHealth = 40;
         attack = 1;
-        fogClear = 2;
+        fogClear.m_cutoutScale = 2;
         myAgent.speed = 2;
         maxCarryCapcity = 5;
         breathRate = 10;
@@ -85,6 +88,8 @@ public class UnitBehavoir : MonoBehaviour
         myName = _names[Random.Range(0, _names.Length)];
 
         suitMat.material.color = myColor;
+
+        GameManager.GM.DockUnit(this);
         switch (myClass)
         {
             case Classes.MINER:
@@ -93,13 +98,13 @@ public class UnitBehavoir : MonoBehaviour
                 break;
             case Classes.CAPTAIN:
                 attack += 1;
-                fogClear += 3;
+                fogClear.m_cutoutScale += 3;
                 myAgent.speed -= 1;
                 break;
             case Classes.RECON:
                 myAgent.speed += 3;
                 breathRate += 2;
-                fogClear += 2;
+                fogClear.m_cutoutScale += 2;
                 break;
             case Classes.SOLDIER:
                 maxHealth += 5;
@@ -215,7 +220,7 @@ public class UnitBehavoir : MonoBehaviour
                         curMinedMetal = 0;
                     }
                     GameManager.GM.RemoveUmbilicalCord(this);
-                    //GameManager.GM.DockUnit(this);
+                    GameManager.GM.DockUnit(this);
                     myState = UnitStates.INSIDE;
                     break;
                 case UnitStates.SUFFICATION:
@@ -321,7 +326,7 @@ public class UnitBehavoir : MonoBehaviour
             case Classes.CAPTAIN:
                 break;
             case Classes.RECON:
-                fogClear += 2;
+                fogClear.m_cutoutScale += 2;
                 myAgent.speed += 7;
                 health += 5;
                 breathRate += 10;
@@ -341,16 +346,10 @@ public class UnitBehavoir : MonoBehaviour
     }
     public void moveUnit(Vector3 destination, GameObject _objectTag)
     {
-        if (myState == UnitStates.INSIDE)
-        {
-            transform.position = destination;
-        }
+        myAgent.enabled = false;
+        myAgent.enabled = true;
+        myAgent.SetDestination(destination);
 
-        else
-        {
-            myAgent.SetDestination(destination);
-        }
-        
         myState = UnitStates.MOVING;
         destinationObject = _objectTag;
     

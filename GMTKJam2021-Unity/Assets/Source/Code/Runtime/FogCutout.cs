@@ -41,7 +41,7 @@ public class FogCutout : MonoBehaviour
     #region Private Fields
 
     [SerializeField]
-    private FloatReference m_cutoutScale = new FloatReference(1f);
+    public float m_cutoutScale;
 
     #endregion
 
