@@ -40,41 +40,41 @@ public class UnitCardWidget : MonoBehaviour
             case Classes.MINER:
                 if (_unit.hasBeenUpgraded)
                 {
-                    statText.text = "Stats: O2 Cost, Speed+, Attack, Vision, Gather++, Carry++";
+                    statText.text = "Stats: O2 Cost, Speed+, Tether, Vision, Gather++, Carry++";
                 }
                 else
                 {
-                    statText.text = "Stats: O2 Cost, Speed, Attack, Vision, Gather+, Carry+";
+                    statText.text = "Stats: O2 Cost, Speed, Tether, Vision, Gather+, Carry+";
                 }
                 break;
             case Classes.CAPTAIN:
                 if (_unit.hasBeenUpgraded)
                 {
-                    statText.text = "Stats: O2 Cost, Speed, Attack++, Vision++, Gather, Carry";
+                    statText.text = "Stats: O2 Cost, Speed, Tether, Vision++, Gather, Carry";
                 }
                 else
                 {
-                    statText.text = "Stats: O2 Cost, Speed, Attack+, Vision+, Gather, Carry";
+                    statText.text = "Stats: O2 Cost, Speed, Tether, Vision+, Gather, Carry";
                 }
                 break;
             case Classes.RECON:
                 if (_unit.hasBeenUpgraded)
                 {
-                    statText.text = "Stats: O2 Cost-, Speed++, Attack, Vision++, Gather, Carry";
+                    statText.text = "Stats: O2 Cost-, Speed++, Tether, Vision++, Gather, Carry";
                 }
                 else
                 {
-                    statText.text = "Stats: O2 Cost, Speed+, Attack, Vision+, Gather, Carry";
+                    statText.text = "Stats: O2 Cost, Speed+, Tether, Vision+, Gather, Carry";
                 }
                 break;
             case Classes.SOLDIER:
                 if (_unit.hasBeenUpgraded)
                 {
-                    statText.text = "Stats: O2 Cost-, Speed++, Attack++, Vision, Gather, Carry";
+                    statText.text = "Stats: O2 Cost-, Speed++, Tether, Vision, Gather, Carry";
                 }
                 else
                 {
-                    statText.text = "Stats: O2 Cost, Speed+, Attack+, Vision, Gather, Carry";
+                    statText.text = "Stats: O2 Cost, Speed+, Tether, Vision, Gather, Carry";
                 }
                 break;
             case Classes.NONE:

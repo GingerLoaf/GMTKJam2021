@@ -9,8 +9,8 @@ public class UIManager : MonoBehaviour
     [Header("UI Component")]
     [SerializeField]
     Text statReadout = null;
-    [SerializeField]
-    Button repairButton = null;
+    //[SerializeField]
+    //Button repairButton = null;
     [SerializeField]
     Button shipUpgradeButton = null;
     [SerializeField]
@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
     {
         curUpgradeIndex = 0;
         
-        repairButton.transform.GetChild(0).GetComponent<Text>().text = "repair (" + repairCost.Value + ")";
+        //repairButton.transform.GetChild(0).GetComponent<Text>().text = "repair (" + repairCost.Value + ")";
 
         shipUpgradeButton.transform.GetChild(0).GetComponent<Text>().text = 
             "buy ship component (" + shipComponentCosts[curUpgradeIndex] + ")";
@@ -56,7 +56,7 @@ public class UIManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        repairButton.interactable = (totalMetal.Value >= repairCost && terrariumCurrentHealth < terrariumMaxHealth);
+        //repairButton.interactable = (totalMetal.Value >= repairCost && terrariumCurrentHealth < terrariumMaxHealth);
         
         if (curUpgradeIndex < shipComponentCosts.Length)
         {
@@ -87,6 +87,7 @@ public class UIManager : MonoBehaviour
         
     }
 
+    /*
     public void RepairTerrarium()
     {
         if (totalMetal.Value >= repairCost && terrariumCurrentHealth < terrariumMaxHealth)
@@ -95,7 +96,7 @@ public class UIManager : MonoBehaviour
             terrariumCurrentHealth.Value += healthPerRpair;
         }
     }
-
+    */
     public void OpenCrewMenu()
     {
         for (int i = 0; i < units.Length; i++)
