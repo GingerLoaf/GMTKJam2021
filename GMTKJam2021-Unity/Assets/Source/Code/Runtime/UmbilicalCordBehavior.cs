@@ -32,6 +32,7 @@ public class UmbilicalCordBehavior : MonoBehaviour
             LR.SetPosition(0, tarrariumTransform.position);
             LR.SetPosition(1, unit.transform.position);
         }
+        
     }
 
     public UnitBehavoir myUnit

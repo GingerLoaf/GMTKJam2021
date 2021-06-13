@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 530e556d4407947dcae7102ff497587d, type: 3}
+  m_Name: StateMachine_Terrarium
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"title":null,"summary":null,"pan":{"x":-113.0,"y":-51.0},"zoom":1.0,"elements":[{"nest":{"source":"Embed","macro":null,"embed":{"variables":{"collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":"Start","summary":null,"pan":{"x":390.0,"y":63.0},"zoom":1.0,"elements":[{"coroutine":false,"defaultValues":{},"position":{"x":-70.0,"y":-189.0},"guid":"e0eb6660-2eb5-46c7-aa35-331e53fa86fe","$version":"A","$type":"Unity.VisualScripting.Update","$id":"13"},{"nest":{"source":"Macro","macro":0,"embed":null},"defaultValues":{"PropertyName":{"$content":"Run
+      Forward","$type":"System.String"}},"position":{"x":188.0,"y":-25.0},"guid":"87d32fc4-4f4e-437b-9901-5407be864ab1","$version":"A","$type":"Unity.VisualScripting.SuperUnit","$id":"15"},{"specifyFallback":false,"kind":"Object","defaultValues":{"name":{"$content":"NavMeshAgent","$type":"System.String"},"object":null},"position":{"x":-143.0,"y":-72.0},"guid":"7b669de0-1039-4d95-b004-34e2a6d15584","$version":"A","$type":"Unity.VisualScripting.GetVariable","$id":"18"},{"specifyFallback":false,"kind":"Object","defaultValues":{"name":{"$content":"Animator","$type":"System.String"},"object":null},"position":{"x":-107.0,"y":67.0},"guid":"f4bf62e0-7a55-49e6-9a6d-f6e203eda90b","$version":"A","$type":"Unity.VisualScripting.GetVariable","$id":"20"},{"specifyFallback":false,"kind":"Object","defaultValues":{"name":{"$content":"WalkingAnimationName","$type":"System.String"},"object":null},"position":{"x":-184.0,"y":200.0},"guid":"ff2b7b28-d0c5-43cf-94e0-04f75baca68c","$version":"A","$type":"Unity.VisualScripting.GetVariable","$id":"22"},{"sourceUnit":{"$ref":"13"},"sourceKey":"trigger","destinationUnit":{"$ref":"15"},"destinationKey":"Update","guid":"126e706c-715d-400b-a937-6f120e4f64fa","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"18"},"sourceKey":"value","destinationUnit":{"$ref":"15"},"destinationKey":"NavMeshAgent","guid":"67887399-2857-4506-9a2d-8c1730c714fc","$type":"Unity.VisualScripting.ValueConnection"},{"sourceUnit":{"$ref":"20"},"sourceKey":"value","destinationUnit":{"$ref":"15"},"destinationKey":"Animator","guid":"e5ea3adb-6d1f-419a-acf9-4ebcd81a2289","$type":"Unity.VisualScripting.ValueConnection"},{"sourceUnit":{"$ref":"22"},"sourceKey":"value","destinationUnit":{"$ref":"15"},"destinationKey":"PropertyName","guid":"76b3badf-091d-4a78-89bc-d423c4608d01","$type":"Unity.VisualScripting.ValueConnection"}],"$version":"A"}},"isStart":true,"position":{"x":-358.0,"y":-113.0},"width":170.0,"guid":"b958fb42-1103-4dd2-83e8-92ac3a7731d2","$version":"A","$type":"Unity.VisualScripting.FlowState"}],"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: 3ed6312b88a12fc4ab94401dca65cbad, type: 2}

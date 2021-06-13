@@ -84,17 +84,15 @@ public class UnitCardWidget : MonoBehaviour
                 break;
         }
 
-        nameText.text = "Name: " + myUnit.myName +"\nUpgraded?";
+        nameText.text = "Name: " + myUnit.myName;
         //statText.text = "Stats Debug!";
         if (_unit.hasBeenUpgraded)
         {
-            upgradeText.text = "yes";
-            upgradeText.color = Color.green;
+            upgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Upgraded";
         }
         else
         {
-            upgradeText.text = "no";
-            upgradeText.color = Color.red;
+            upgradeButton.transform.GetChild(0).GetComponent<Text>().text = "Upgrade: " + totalMetal.Value + "/" + upgradeCost.Value;
         }
 
         icon.color = _unit.myColor;
