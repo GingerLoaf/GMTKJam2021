@@ -2089,6 +2089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8135601730434058910}
   - component: {fileID: 8135601730434058909}
+  - component: {fileID: 1513406383}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -2143,6 +2144,7 @@ MonoBehaviour:
   numUnits: 10
   unitSpawnpoint: {fileID: 0}
   spawnRadius: 5
+  terrariumRadius: 0
   unitPrefab: {fileID: 4839445751199475439, guid: 6726859706b3e9d48ab860f2050b2314,
     type: 3}
   unitUmbilicalCordPrefab: {fileID: 6401189117950442005, guid: c21db9c58396ff94183c353a02fa8cd1,
@@ -2154,6 +2156,24 @@ MonoBehaviour:
   highlightColor: {r: 0, g: 0, b: 0, a: 1}
   SelectedColor: {r: 0, g: 0.38367796, b: 1, a: 1}
   UI: {fileID: 8135601729326461471}
+--- !u!114 &1513406383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8135601730434058908}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96eeca157ed84eeaa590bdf2d0cc04e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxCombatDistance:
+    _usage: 0
+    _value: 50
+    _constant: {fileID: 0}
+    _variable: {fileID: 0}
+    _variableInstancer: {fileID: 0}
 --- !u!1 &8135601730803999794
 GameObject:
   m_ObjectHideFlags: 0
