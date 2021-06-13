@@ -11,16 +11,26 @@ public abstract class AbstractDiscoverableEntity<T> : MonoBehaviour
 
     #endregion
 
+    #region Protected Methods
+
+    protected virtual void OnEnableProtected() { }
+
+    protected virtual void OnDisableProtected() { }
+
+    #endregion
+
     #region Private Methods
 
     private void OnEnable()
     {
         s_enabledEntities.Add(this as T);
+        OnEnableProtected();
     }
 
     private void OnDisable()
     {
         s_enabledEntities.Remove(this as T);
+        OnDisableProtected();
     }
 
     #endregion
