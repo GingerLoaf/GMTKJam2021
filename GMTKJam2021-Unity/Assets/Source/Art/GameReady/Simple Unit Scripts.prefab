@@ -152,23 +152,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79fc714a2ff6b4e4295641b6d3e721e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Health: 0
+  maxHealth: 0
+  health: 0
+  attack: 0
   fogClear: 0
   myState: 0
   myAgent: {fileID: 0}
-  currentResource: 0
-  maxResource: 10
-  maxTimer: 0
-  currentTimer: 0
   myClass: 4
   baseTranform: {fileID: 0}
+  myColor: {r: 1, g: 1, b: 1, a: 1}
+  myName: 
+  hasBeenUpgraded: 0
   curMinningType: 1
-  maxCarryCapcity:
-    _usage: 1
-    _value: 0
-    _constant: {fileID: 11400000, guid: a679a8cd2a95dac4897960af07d773b5, type: 2}
-    _variable: {fileID: 0}
-    _variableInstancer: {fileID: 0}
+  maxCarryCapcity: 10
   gatherRate: 1
   gatherDst: 1
   curMinedOxygen: 0
@@ -196,6 +192,10 @@ MonoBehaviour:
     _variableInstancer: {fileID: 0}
   dumbUnit: 0
   destinationObject: {fileID: 0}
+  maxTimer: 0
+  currentTimer: 0
+  randomNameText: {fileID: 4900000, guid: 78ff0bb0a9cbed24ab6189722db02b55, type: 3}
+  suitMat: {fileID: 4839445751199475427}
 --- !u!1001 &5691132645496441104
 PrefabInstance:
   m_ObjectHideFlags: 0
