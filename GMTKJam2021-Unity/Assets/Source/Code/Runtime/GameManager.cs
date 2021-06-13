@@ -384,14 +384,20 @@ public class GameManager : MonoBehaviour
 
     public void RemoveUmbilicalCord(UnitBehavoir _unit)
     {
+        if (umbilicalCordBehaviors.Count > 0)
+        {
+
+        }
         for (int i = 0; i < umbilicalCordBehaviors.Count; i++)
         {
             if (umbilicalCordBehaviors[i].myUnit == _unit)
             {
                 Destroy(umbilicalCordBehaviors[i].gameObject, 1f);
+                umbilicalCordBehaviors.RemoveAt(i);
                 break;
             }
         }
+        umbilicalCordBehaviors.TrimExcess();
     }
 
     public void Quit()
