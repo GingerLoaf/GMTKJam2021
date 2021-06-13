@@ -8,6 +8,7 @@ TagManager:
   - terrarium
   - unit
   - resource
+  - enemy
   layers:
   - Default
   - TransparentFX
