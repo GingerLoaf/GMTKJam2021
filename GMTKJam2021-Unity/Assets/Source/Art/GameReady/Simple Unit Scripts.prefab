@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4839445751199475437}
   - component: {fileID: 4839445751199475436}
   - component: {fileID: 4839445751199475430}
+  - component: {fileID: 6910528293394778718}
   m_Layer: 0
   m_Name: Simple Unit Scripts
   m_TagString: unit
@@ -160,9 +161,11 @@ MonoBehaviour:
   myAgent: {fileID: 0}
   myClass: 4
   baseTranform: {fileID: 0}
+  umbiCordLength: 0
   myColor: {r: 1, g: 1, b: 1, a: 1}
   myName: 
   hasBeenUpgraded: 0
+  combatant: {fileID: 6910528293394778718}
   curMinningType: 1
   maxCarryCapcity: 10
   gatherRate: 1
@@ -196,6 +199,34 @@ MonoBehaviour:
   currentTimer: 0
   randomNameText: {fileID: 4900000, guid: 78ff0bb0a9cbed24ab6189722db02b55, type: 3}
   suitMat: {fileID: 4839445751199475427}
+--- !u!114 &6910528293394778718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4839445751199475439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4aabcdc2f325d841968c0408dcdd01c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_isAlive: 1
+  m_onDamage:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4839445751199475430}
+        m_TargetAssemblyTypeName: UnitBehavoir, Assembly-CSharp
+        m_MethodName: takeDamage
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &5691132645496441104
 PrefabInstance:
   m_ObjectHideFlags: 0

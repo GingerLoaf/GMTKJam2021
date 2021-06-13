@@ -70,7 +70,9 @@ public class Enemy : AbstractDiscoverableEntity<Enemy>
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, m_attackDistance);
-        Gizmos.DrawWireSphere(StartPosition, m_targetDistance);
+
+        var start = Application.isPlaying ? StartPosition : transform.position;
+        Gizmos.DrawWireSphere(start, m_targetDistance);
     }
 
     #endregion
