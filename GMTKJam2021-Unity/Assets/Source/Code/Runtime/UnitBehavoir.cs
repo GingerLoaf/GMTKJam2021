@@ -21,7 +21,7 @@ public class UnitBehavoir : MonoBehaviour
 
     public Color myColor = Color.white;
     public string myName = "";
-    bool isConnectedToBase;
+    public bool isConnectedToBase;
 
     public bool hasBeenUpgraded;
 
@@ -55,7 +55,7 @@ public class UnitBehavoir : MonoBehaviour
     // Start is called before the first frame update
     public void Init(Transform _base, Classes _class)
     {
-        myState = UnitStates.IDLE;
+        myState = UnitStates.INSIDE;
         myAgent = GetComponent<NavMeshAgent>();
         oxygenLevel = maxOxygen;
         
@@ -70,9 +70,7 @@ public class UnitBehavoir : MonoBehaviour
         myAgent.speed = 2;
         maxCarryCapcity = 5;
         breathRate = 1;
-        umbiCordLength = 20f;
-        
-
+        umbiCordLength = 100f;
 
         myColor = Random.ColorHSV();
 
@@ -145,6 +143,8 @@ public class UnitBehavoir : MonoBehaviour
                     break;
                 case UnitStates.IDLE:
                     break;
+                case UnitStates.INSIDE:
+                    break;
                 case UnitStates.GATHERING:
                     if (timeBetweenGathering >= gatherRate)
                     {
@@ -199,7 +199,9 @@ public class UnitBehavoir : MonoBehaviour
                         totalMetal.Value += curMinedMetal;
                         curMinedMetal = 0;
                     }
-                    myState = UnitStates.IDLE;
+                    GameManager.GM.RemoveUmbilicalCord(this);
+                    GameManager.GM.DockUnit(this);
+                    myState = UnitStates.INSIDE;
                     break;
                 case UnitStates.SUFFICATION:
                     
@@ -320,13 +322,22 @@ public class UnitBehavoir : MonoBehaviour
     }
     public void moveUnit(Vector3 destination, GameObject _objectTag)
     {
-        myAgent.SetDestination(destination);
+        if (myState == UnitStates.INSIDE)
+        {
+            transform.position = destination;
+        }
+
+        else
+        {
+            myAgent.SetDestination(destination);
+        }
         
         myState = UnitStates.MOVING;
         destinationObject = _objectTag;
     
     
     }
+
     public void takeDamage(int _damge)
     {
         health -= _damge;
@@ -335,11 +346,9 @@ public class UnitBehavoir : MonoBehaviour
             myState = UnitStates.DIED;
         }
     }
-
-    
 }
 
-public enum UnitStates {MOVING, ATTACKING, IDLE, GATHERING, SUFFICATION, DIED, DEPOSIT}
+public enum UnitStates {MOVING, ATTACKING, IDLE, INSIDE, GATHERING, SUFFICATION, DIED, DEPOSIT}
 public enum Classes {MINER,CAPTAIN,RECON,SOLDIER, NONE }
 
 

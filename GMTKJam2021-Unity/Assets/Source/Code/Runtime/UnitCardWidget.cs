@@ -103,8 +103,6 @@ public class UnitCardWidget : MonoBehaviour
         upgradeButton.onClick.AddListener(upgrade);
         upgradeButton.onClick.AddListener(()=> totalMetal.Value -= upgradeCost);
         upgradeButton.onClick.AddListener(()=> Init(_unit));
-
-        
         //upgradeIcon.SetActive(_unit.hasBeenUpgraded);
     }
 
