@@ -388,7 +388,7 @@ public class GameManager : MonoBehaviour
         {
             if (umbilicalCordBehaviors[i].myUnit == _unit)
             {
-                Destroy(umbilicalCordBehaviors[i].gameObject);
+                Destroy(umbilicalCordBehaviors[i].gameObject, 1f);
                 break;
             }
         }
