@@ -53,12 +53,34 @@ public class UnitBehavoir : MonoBehaviour
         myState = UnitStates.IDLE;
         myAgent = GetComponent<NavMeshAgent>();
         oxygenLevel = 20;
-        maxCarryCapcity = 5;
         //Debug
         isConnectedToBase = true;
         baseTranform = _base;
         myClass = _class;
         //unit = gameObject;
+        switch (myClass)
+        {
+            case Classes.MINER:
+                gatherRate = 1;
+                Health = 10;
+                breathRate = 2;
+                myAgent.speed = 2;
+                fogClear = 1;
+                
+                
+
+                break;
+            case Classes.CAPTAIN:
+                break;
+            case Classes.RECON:
+                break;
+            case Classes.SOLDIER:
+                break;
+            case Classes.NONE:
+                break;
+            default:
+                break;
+        }
     }
 
     // Update is called once per frame
