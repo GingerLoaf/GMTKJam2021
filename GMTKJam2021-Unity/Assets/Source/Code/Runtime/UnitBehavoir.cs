@@ -17,6 +17,7 @@ public class UnitBehavoir : MonoBehaviour
     public NavMeshAgent myAgent;
     public Classes myClass = Classes.NONE;
     public Transform baseTranform;
+    public float umbiCordLength;
 
     public Color myColor = Color.white;
     public string myName = "";
@@ -57,11 +58,21 @@ public class UnitBehavoir : MonoBehaviour
         myState = UnitStates.IDLE;
         myAgent = GetComponent<NavMeshAgent>();
         oxygenLevel = maxOxygen;
-        maxCarryCapcity = 5;
+        
         
         isConnectedToBase = true;
         baseTranform = _base;
         myClass = _class;
+
+        maxHealth = 10;
+        attack = 1;
+        fogClear = 2;
+        myAgent.speed = 2;
+        maxCarryCapcity = 5;
+        breathRate = 1;
+        umbiCordLength = 20f;
+        
+
 
         myColor = Random.ColorHSV();
 
@@ -69,6 +80,32 @@ public class UnitBehavoir : MonoBehaviour
         myName = _names[Random.Range(0, _names.Length)];
 
         suitMat.material.color = myColor;
+        switch (myClass)
+        {
+            case Classes.MINER:
+                gatherRate = 2;
+                maxCarryCapcity += 5;
+                break;
+            case Classes.CAPTAIN:
+                attack += 1;
+                fogClear += 3;
+                myAgent.speed -= 1;
+                break;
+            case Classes.RECON:
+                myAgent.speed += 3;
+                breathRate += 2;
+                fogClear += 2;
+                break;
+            case Classes.SOLDIER:
+                maxHealth += 5;
+                attack += 2;
+                myAgent.speed += 1;
+                break;
+            case Classes.NONE:
+                break;
+            default:
+                break;
+        }
     }
 
     // Update is called once per frame
@@ -272,8 +309,8 @@ public class UnitBehavoir : MonoBehaviour
                 break;
             case Classes.SOLDIER:
                 attack += 3;
-                myAgent.speed += 3;
-                health += 15;
+                myAgent.speed += 2;
+                maxHealth += 15;
                 breathRate += 3;
                 break;
             case Classes.NONE:
