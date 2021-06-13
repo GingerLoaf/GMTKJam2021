@@ -67,7 +67,7 @@ public class UnitBehavoir : MonoBehaviour
         baseTranform = _base;
         myClass = _class;
 
-        maxHealth = 10;
+        maxHealth = 40;
         attack = 1;
         fogClear = 2;
         myAgent.speed = 2;
@@ -144,6 +144,16 @@ public class UnitBehavoir : MonoBehaviour
                     }
                     break;
                 case UnitStates.ATTACKING:
+                    var enemyAttacked = destinationObject.GetComponent<Enemy>();
+                    
+                    if (enemyAttacked.IsAlive == false)
+                    {
+                        myState = UnitStates.IDLE;
+                    }
+                    else
+                    {
+                        enemyAttacked.DoDamage(attack);
+                    }
                     myAgent.isStopped = true;
                     // needs enemy damage script
                     break;
